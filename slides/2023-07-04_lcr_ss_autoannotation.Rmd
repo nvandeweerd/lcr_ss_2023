@@ -1,0 +1,84 @@
+---
+title: "Learner Corpus Research Summer School"
+subtitle: "Automatic annotation of learner corpus data"  
+date: "Louvain-la-Neuve, Belgium  &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; July 4th, 2023"
+author: 
+  - "Dr. Nathan Vandeweerd"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+knit: pagedown::chrome_print
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, fig.cap = TRUE, warning = FALSE, error = FALSE, 
+                      message = FALSE)
+library(officedown); library(officer)
+library(tidyverse)
+library(here);
+library(kableExtra)
+
+def_text <- fp_text(font.size = 12, font.family = "Montserrat")
+
+# set_flextable_defaults(font.family = "Montserrat", 
+#                        font.size = 12,
+#                        digits = 0,
+#                        border.color = "#000000",
+#                        padding.bottom = 1,
+#                        padding.top = 1,
+#                        padding.left = 3,
+#                        padding.right = 1)
+
+
+
+```
+
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view"))
+```
+
+```{r load_refs, include=FALSE, cache=FALSE, eval = FALSE }
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "text",
+           style = "markdown",
+           hyperlink = FALSE,
+           dashed = FALSE,
+           no.print.fields = c("url", "doi", "issn", "isbn"))
+#bib <- RefManageR::ReadBib(here("references.bib"), check = TRUE)
+#save(bib, file = here("presentations", "bib.rdata"))
+load(here("defence", "bib.rdata"))
+```
+
+```{r xaringan-banner, echo=FALSE}
+xaringanExtra::use_banner(
+  bottom_center = "github.com/nvandeweerd/lcr_ss_2023",
+  exclude = "title-slide"
+)
+```
+
+
+
+## Agenda
+
+
+
+---
+
+# .huge[Q]
+
+
+## .huge[.green[.center[& Eh?]]]
+
+---
