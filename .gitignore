@@ -2,7 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
-.Rproj
+.gitignore
+.DS_Store
 info/
 notes/
+lcr_ss_2023.Rproj
+
 
