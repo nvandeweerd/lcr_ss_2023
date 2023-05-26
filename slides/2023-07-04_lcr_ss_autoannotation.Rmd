@@ -13,7 +13,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-knit: pagedown::chrome_print
+#knit: pagedown::chrome_print
 editor_options: 
   chunk_output_type: console
 ---
@@ -21,8 +21,8 @@ editor_options:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(echo = FALSE, fig.cap = TRUE, warning = FALSE, error = FALSE, 
-                      message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, error = FALSE, 
+                      message = FALSE, fig.align = "center")
 library(officedown); library(officer)
 library(tidyverse)
 library(here);
@@ -69,10 +69,83 @@ xaringanExtra::use_banner(
 ```
 
 
+## All materials and sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023)
+
+.pull-left[
+```{r}
+knitr::include_graphics("figures/github_download.png")
+```
+
+1. Click on .content-box-green[ `< > Code`].
+2. `Download ZIP` to download all files.
+]
+
+.pull-right[
+```{r, out.width="80%"}
+knitr::include_graphics("figures/qrcode.png")
+```
+]
+
+
+---
+
 
 ## Agenda
 
 
+---
+
+## How this workshop will work
+
+.pull-left[
+.large[**Level 1.**] Basic webtools (beginner)
+
+]
+
+
+.pull-right[
+```{r}
+knitr::include_graphics("figures/level1.png")
+```
+
+]
+
+---
+
+## How this workshop will work
+
+.pull-left[
+.large[**Level 1.**] Basic webtools (beginner)  
+.large[**Level 2.**] SketchEngine (intermediate)
+
+]
+
+
+.pull-right[
+```{r}
+knitr::include_graphics("figures/level2.png")
+```
+
+]
+
+---
+
+## How this workshop will work
+
+.pull-left[
+.large[**Level 1.**] Basic webtools (beginner)  
+.large[**Level 2.**] SketchEngine (intermediate)  
+.large[**Level 3.**] R (advanced)  
+
+]
+
+
+.pull-right[
+```{r}
+knitr::include_graphics("figures/level3.png")
+```
+
+]
 
 ---
 
@@ -82,3 +155,11 @@ xaringanExtra::use_banner(
 ## .huge[.green[.center[& Eh?]]]
 
 ---
+
+## `r icons::fontawesome("book")` Further reading 
+
+Newman, J., & Cox, C. (2021). Corpus annotation. In A practical handbook of corpus linguistics (pp. 25–48). Springer. https://doi.org/10.4324/9780429269035-7
+
+van Rooy, B. (2015). Annotating learner corpora. In S. Granger, G. Gilquin, & F. Meunier (Eds.), The Cambridge handbook of learner corpus research (pp. 79–106). Cambridge University Press. https://doi.org/10.1017/CBO9781139649414.005
+
+
