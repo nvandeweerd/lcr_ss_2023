@@ -63,7 +63,7 @@ bib <- RefManageR::ReadBib(here("slides", "references.bib"), check = TRUE)
 
 ```{r xaringan-banner, echo=FALSE}
 xaringanExtra::use_banner(
-  bottom_center = "github.com/nvandeweerd/lcr_ss_2023",
+  bottom_center = paste0("Last edited: ", Sys.time(), " | ", "Slides available here: github.com/nvandeweerd/lcr_ss_2023"),
   exclude = "title-slide"
 )
 ```
@@ -484,7 +484,6 @@ knitr::include_graphics("figures/semantic_tags_example.png")
 
 - Hands on activity: *Syntactic annotation*
 - Accuracy measures
-- Hands on activity: *Calculating accuracy measures*
 - Final remarks
 
 
@@ -1356,6 +1355,252 @@ Open `activity_02_parsing.R` and follow the instructions.
 
 ---
 
+class: header-slide
+
+# Accuracy
+
+---
+
+## The effect of learner errors
+
+```{r, out.width="60%", fig.align='center', fig.cap=""}
+knitr::include_graphics("figures/learner-error.png")
+```
+
+.right[.citation[ `r Citep(bib, c("Ragheb2012"), before = "", after = "")`]]
+
+--
+
+.right[*What problems do you see here?*]
+
+```{r, fig.align='center', fig.cap=""}
+knitr::include_graphics("figures/learner-error-dep.png")
+```
+
+
+---
+
+## Not all errors are equally as problematic
+
+
+
+```{r, out.width="60%", fig.align='center', fig.cap=""}
+knitr::include_graphics("figures/learner-error-2.png")
+```
+
+
+
+.right[.citation[ `r Citep(bib, c("Ragheb2012"), before = "", after = "")`]]
+
+
+
+---
+
+## Evaluating the *reliability* of automatic tools
+
+.pull-left[
+**Confusion matrix**: A tabulation of the agreement between manual and automatic annotation.
+
+*Example:*
+```{r}
+units <- c("noun",  "verb")
+prob <- c(.7, .3)
+set.seed(2)
+confusion<- data.frame(
+  unit = c("apple", "run", "cake", "coffee", "drink", "swim", "tart", "walk", "ice", "pen"),
+  human = sample(units, 10, replace = TRUE, prob = prob), 
+  computer = sample(units, 10, replace = TRUE, prob = prob)
+) %>%
+  mutate(human = factor(human, levels = units ), 
+         computer = factor(computer, levels = units))
+print(confusion)
+```
+
+
+
+]
+
+.pull-right[
+```{r, fig.align='center'}
+knitr::include_graphics("figures/confusion_matrix.png")
+```
+]
+
+---
+
+## Evaluating the *reliability* of automatic tools
+
+.pull-left[
+**Confusion matrix**: A tabulation of the agreement between manual and automatic annotation.
+
+*Example:*
+```{r}
+print(confusion)
+
+```
+
+]
+
+.pull-right[
+```{r}
+caret::confusionMatrix(confusion$human, confusion$computer)$table
+```
+]
+
+---
+
+## Evaluating the *reliability* of automatic tools
+
+.pull-left[
+
+**Precision:** the extent to which the retrieved objects in a query are correctly tagged
+
+**Recall/Sensitivity:** the extent to which the objects matching the query retrieve all the target objects in the corpus
+
+**F-score/F1-score** the balance between precision and recall (what is normally reported)
+]
+
+
+---
+
+## Evaluating the *reliability* of automatic tools
+
+.pull-left[
+
+**Precision:** the extent to which the retrieved objects in a query are correctly tagged
+
+$$\frac{TP}{(TP + FP)}$$
+
+**Recall/Sensitivity:** the extent to which the objects matching the query retrieve all the target objects in the corpus
+
+$$\frac{TP}{(TP + FN)}$$
+
+**F-score/F1-score** the balance between precision and recall (what is normally reported)
+
+$$\frac{2*(P*R)}{P+R}$$
+
+]
+
+--
+
+.pull-right[
+```{r}
+pr <- read.csv(here("data", "pr_fsca.csv")) %>%
+  mutate(across(where(is.double), ~round(.x, 2)))
+
+order <- c("SENTENCES", "CLAUSES", "DEP_CLAUSES",
+                              "CO_CLAUSES", "T_UNITS", "NOUN_PHRASES", "VERB_PHRASES")
+pr %>%
+  select(Unit = X, Manual:Recall, `F-score` = F_score) %>%
+  relocate(Recall, .after = Identical) %>%
+  slice(match(order, Unit)) %>%
+  mutate(Unit = recode(Unit,
+    SENTENCES = "Sentences",
+    CLAUSES = "Clauses",
+    DEP_CLAUSES = "Dependent Clauses",
+    CO_CLAUSES = "Coordinated Clauses",
+    T_UNITS = "T-units",
+    NOUN_PHRASES = "Noun Phrases",
+    VERB_PHRASES = "Verb Phrases"
+  )) %>%
+  select(-Manual, -Automatic, -Identical) %>%
+  knitr::kable(
+    caption = "Reliability of automatic annotation for fsca tool (Vandeweerd, 2021: 265)",
+    col.names = c("Unit",  "Precision", "Recall", "F-score"),
+    booktabs = TRUE,
+    linesep = "",
+    align = "lcccccc"
+  ) %>%
+  kableExtra::kable_styling(full_width = FALSE)
+```
+
+]
+
+---
+
+## Webtools
+
+.center[
+
+.center[[Confusion Matrix Online Calculator](https://onlineconfusionmatrix.com/)]
+
+```{r, fig.align='center', out.width="70%", fig.cap = ""}
+knitr::include_graphics("figures/confusion-matrix-calculator.png")
+```
+
+
+]
+
+
+---
+
+## R
+
+.pull-left[
+
+```{r, eval = FALSE, echo = TRUE}
+library(caret)
+
+confusionMatrix(data, reference)
+
+```
+
+
+.content-box-blue[
+`r icons::fontawesome("lightbulb")` See [this vignette](https://cran.r-project.org/web/packages/caret/vignettes/caret.html) for more information about the `caret` package.
+]
+]
+
+
+.pull-right[
+```{r, echo = TRUE, eval = FALSE}
+# Confusion Matrix and Statistics
+# 
+#           Reference
+# Prediction  M  R
+#          M 21  7
+#          R  6 17
+#                                         
+#                Accuracy : 0.745         
+#                  95% CI : (0.604, 0.857)
+#     No Information Rate : 0.529         
+#     P-Value [Acc  NIR] : 0.00131       
+#                                         
+#                   Kappa : 0.487         
+#                                         
+#  Mcnemar's Test P-Value : 1.00000       
+#                                         
+#             Sensitivity : 0.778         
+#             Specificity : 0.708         
+#          Pos Pred Value : 0.750         
+#          Neg Pred Value : 0.739         
+#              Prevalence : 0.529         
+#          Detection Rate : 0.412         
+#    Detection Prevalence : 0.549         
+#       Balanced Accuracy : 0.743         
+#                                         
+#        'Positive' Class : M             
+# 
+```
+
+]
+
+---
+
+class: header-slide
+
+# Final remarks
+
+---
+
+## Recap
+
+---
+
+## Your goals
+
+---
+
 # .huge[Q]
 
 
@@ -1369,10 +1614,14 @@ Kyle, K. (2021). Natural language processing for learner corpus research. Intern
 
 Newman, J., & Cox, C. (2021). Corpus annotation. In A practical handbook of corpus linguistics (pp. 25–48). Springer. https://doi.org/10.4324/9780429269035-7
 
+Ragheb, M., & Dickinson, M. (2012). Defining syntax for learner language annotation. Coling2012. 965–974.
+
 Schmid, H. (2008). Tokenizing and part-of-speech tagging. In Corpus Linguistics: An International Handbook. de Gruyter.
 
 van Rooy, B. (2015). Annotating learner corpora. In S. Granger, G. Gilquin, & F. Meunier (Eds.), The Cambridge handbook of learner corpus research (pp. 79–106). Cambridge University Press. https://doi.org/10.1017/CBO9781139649414.005
 
 Zeldes, A. (2020). Corpus Architecture. In M. Paquot & S. Th. Gries (Eds.), A Practical Handbook of Corpus Linguistics (pp. 49–73). Springer International Publishing. https://link.springer.com/10.1007/978-3-030-46216-1_3
+
+
 
 
