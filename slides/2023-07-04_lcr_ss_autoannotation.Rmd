@@ -13,7 +13,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-knit: pagedown::chrome_print
+#knit: pagedown::chrome_print
 editor_options: 
   chunk_output_type: console
 ---
@@ -63,7 +63,7 @@ bib <- RefManageR::ReadBib(here("slides", "references.bib"), check = TRUE)
 
 ```{r xaringan-banner, echo=FALSE}
 xaringanExtra::use_banner(
-  bottom_center = paste0("Last edited: ", Sys.time(), " | ", "Slides available here: github.com/nvandeweerd/lcr_ss_2023"),
+  bottom_center = paste0("Last updated: ", Sys.time(), " | ", "Slides available here: github.com/nvandeweerd/lcr_ss_2023"),
   exclude = "title-slide"
 )
 ```
@@ -447,23 +447,23 @@ knitr::include_graphics("figures/semantic_tags_example.png")
 
 ---
 
-## What are the advantages of automatic annotation?
+## Why use automatic annotation?
 
 
 .pull-left[
-.can-edit[
-- 
-- 
-]
+```{r, out.width="60%"}
+knitr::include_graphics("figures/speed.webp")
+```
+
 ]
 
 --
 
 .pull-right[
-.large[
-1. speed
-2. reliability
-]
+```{r, out.width="60%"}
+knitr::include_graphics("figures/consistency.jpeg")
+```
+
 ]
 
 
@@ -474,14 +474,15 @@ knitr::include_graphics("figures/semantic_tags_example.png")
 - Text-preprocessing
 - POS-tagging and lemmatization
 - Hands on activity: *POS-tagging and lemmatization*
-- Syntactic annotation
+
 
 <br> 
 
-*Coffee break*
+`r icons::fontawesome("coffee")` *Coffee break* 
 
 <br>
 
+- Syntactic annotation
 - Hands on activity: *Syntactic annotation*
 - Accuracy measures
 - Final remarks
@@ -694,8 +695,7 @@ text %>%
 
 ## So why is pre-processing so important?
 
-
---
+.pull-left[
 
 ```{r, comment=''}
 
@@ -706,7 +706,18 @@ ex_txt_01 %>%
 
   
 ```
+]
 
+--
+
+.pull-right[
+```{r, out.width="60%"}
+knitr::include_graphics("figures/garbage.jpeg")
+```
+
+.center[.medium[*Garbage in...garbage out*]]
+
+]
 
 ---
 
@@ -1197,7 +1208,7 @@ read.csv(here("data", "conll_example.csv")) %>% print()
 --
 
 
-```{r, out.width="40%"}
+```{r, out.width="60%"}
 knitr::include_graphics("figures/spacy_example.svg")
 ```
 
@@ -1228,7 +1239,7 @@ scan(file = here("data", "json_example.json"), what = character(), sep = "\n")
 
 .pull-right[
 .content-box-blue[
-`r icons::fontawesome("lightbulb")` Can easily be [converted](https://www.convertcsv.com/json-to-csv.htm) into CSV/Excel format.  
+`r icons::fontawesome("lightbulb")` Can be [converted](https://www.convertcsv.com/json-to-csv.htm) into CSV/Excel format.  
 
 ]
 ]
@@ -1595,9 +1606,55 @@ class: header-slide
 
 ## Recap
 
+1. What are some types of automatic annotation that can be applied to learner texts?  
+--
+
+1. Why is it important to clean and pre-process your texts before using automatic tools?  
+--
+
+1. What is POS-tagging?  
+--
+
+  - What are some POS tagging tools?  
+--
+  
+1. What is Syntactic parsing?  
+--
+
+  - What are some tools for syntactic parsing?  
+--
+
+1. How can you evaluate the reliability of automatic annotation tools?
+
 ---
 
-## Your goals
+## Your research
+
+.pull-left[
+.large[
+*How can you apply automatic tools to your research?*
+]
+]
+
+.pull-right[
+- Spanish articles
+- morpho-syntactic and syntactic labels
+- morphology
+- semantic, syntactic and discourse features
+- verb valency patterns
+- grammatical complexity
+- grammatical case
+- cohesion and cohesive devices
+- stance features
+- verb aspect
+- adverbs of degree and negation
+- verb phrase ellipsis
+- colour terms
+- meta-discourse markers
+- formulaic language 
+]
+
+
 
 ---
 
@@ -1613,8 +1670,6 @@ class: header-slide
 Kyle, K. (2021). Natural language processing for learner corpus research. International Journal of Learner Corpus Research, 7(1), 1–16.
 
 Newman, J., & Cox, C. (2021). Corpus annotation. In A practical handbook of corpus linguistics (pp. 25–48). Springer. https://doi.org/10.4324/9780429269035-7
-
-Ragheb, M., & Dickinson, M. (2012). Defining syntax for learner language annotation. Coling2012. 965–974.
 
 Schmid, H. (2008). Tokenizing and part-of-speech tagging. In Corpus Linguistics: An International Handbook. de Gruyter.
 
