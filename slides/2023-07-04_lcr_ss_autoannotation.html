@@ -7,8 +7,22 @@
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x250672cdb0c4cf295ad783b2465c6a4","expires":14}</script>
+    <script src="libs/himalaya/himalaya.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <link href="libs/editable/editable.css" rel="stylesheet" />
+    <script src="libs/editable/editable.js"></script>
     <link href="libs/xaringanExtra-banner/banner.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-banner/banner.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet/leaflet.js"></script>
+    <link href="libs/leafletfix/leafletfix.css" rel="stylesheet" />
+    <script src="libs/proj4/proj4.min.js"></script>
+    <script src="libs/Proj4Leaflet/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding/leaflet.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -58,57 +72,1283 @@ class: center, middle, inverse, title-slide
 
 ---
 
+class: header-slide
 
-## Agenda
+# Introduction
+
+
+---
+
+## About me
+
+.pull-left[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M496 128v16a8 8 0 0 1-8 8h-24v12c0 6.627-5.373 12-12 12H60c-6.627 0-12-5.373-12-12v-12H24a8 8 0 0 1-8-8v-16a8 8 0 0 1 4.941-7.392l232-88a7.996 7.996 0 0 1 6.118 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.255 0-24 10.745-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.255-10.745-24-24-24zM96 192v192H60c-6.627 0-12 5.373-12 12v20h416v-20c0-6.627-5.373-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z"&gt;&lt;/path&gt;&lt;/svg&gt; Radboud University Nijmegen  
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M128 148v-40c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12zm140 12h40c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12zm-128 96h40c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12zm128 0h40c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12zm-76 84v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12zm76 12h40c6.6 0 12-5.4 12-12v-40c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12zm180 124v36H0v-36c0-6.6 5.4-12 12-12h19.5V24c0-13.3 10.7-24 24-24h337c13.3 0 24 10.7 24 24v440H436c6.6 0 12 5.4 12 12zM79.5 463H192v-67c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v67h112.5V49L80 48l-.5 415z"&gt;&lt;/path&gt;&lt;/svg&gt; Assistant professor in *Language and Communication*  
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"&gt;&lt;/path&gt;&lt;/svg&gt; Research interests:
+  - Phraseological complexity in L2 French
+  - Accuracy of automatic transcription software for L2 data
+  - Language development during study abroad 
+  - Crowdsourcing language assessment project 
+
+]
+
+.pull-right[
+&lt;img src="figures/id_pic_cropped_small.jpeg" width="60%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+## About you
+
+.pull-left[
+
+
+<div id="htmlwidget-5d588ec697610deb27bd" style="width:504px;height:504px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5d588ec697610deb27bd">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[58.375,44.4355,43.3309,19.3848,39.678,65.618,44.4355,44.4355,46.4946,43.3309,45.4603,50.4662,50.6697,-37,49.1986,67.2891,46.5858,50.6697,51.2228,60.7964,39.95249619,41.3163,31.2974,58.375,42.3682,55.8724,55.8724,55.8724,49.1986],[26.718830458,26.1017,2.9681,-99.156499374,-75.7506,22.1402,26.1017,26.1017,11.3473,2.9681,9.1941,4.8605,4.6159,-66,16.6054,14.5604,0.342,4.6159,4.4102,11.0742,116.30249879,-72.9223,121.5036,26.718830458,14.1501,4.29,4.29,4.29,16.6054],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["University of Tartu","University of Bucharest","Universidad del País Vasco (UPV/EHU)","UNIVERSIDAD AUTONOMA DEL ESTADO DE MEXICO","University of Delaware","Luleå University of Technology ","Faculty of Letters, University of Bucharest and Research Institute for Artificial Intelligence, Romanian Academy, Bucharest","University of Bucharest and Romanian Academy","Eurac Research","University of the Basque Country","Università degli Studi di Milano","UNamur (NaLTT/LSFB-Lab)/UCLouvain (ILC/CECL)","University of Louvain","National University of La Pampa","Masaryk University","Nord University","University of Poitiers","UCLouvain","University of Antwerpen","Inland Norway University of Applied Sciences","Beijing Foreign Studies University","University of Connecticut and Yale University","Fudan University","University of Tartu ","Università degli Studi G. d'Annunzio Chieti-Pescara","School of Critical Studies, University of Glasgow","University of Glasgow","the University of Glasgow","Masaryk University in Brno, Czech Republic"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-37,67.2891],"lng":[-99.156499374,121.5036]}},"evals":[],"jsHooks":[]}</script>
+
+]
+
+.pull-right[
+&lt;img src="2023-07-04_lcr_ss_autoannotation_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+---
+
+## Your goals
+
+
+&gt; "the correlation between corpus building and its exploitation"  
+--
+
+&lt;br&gt;
+&gt; "most appropriate scientific approaches that one may use in analysing data from a learner corpus"  
+--
+
+&lt;br&gt;
+&gt; "I would like to know which new (or less new) software might be used to analyse the corpus. "  
+--
+
+&lt;br&gt;
+&gt; "how to build my own machine-learning scheme when using topic modelling?"  
+--
+
+&lt;br&gt;
+&gt; "Secondly, I wish to get some theoretical knowledge &amp; practical skills on programming"  
+
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+]
+
+]
+
+---
+
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+]
+
+&lt;img src="figures/pos_example.png" width="792" style="display: block; margin: auto;" /&gt;
+
+.citation[ (van
+Rooy, 2015: 80)]
+
+]
+
+--
+
+.pull-right[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"&gt;&lt;/path&gt;&lt;/svg&gt; Your research:  
+
+- Spanish articles
+- morpho-syntactic and syntactic labels
+- morphology
+- semantic, syntactic and discourse features
+- verb valency patterns
+- grammatical complexity
+- grammatical case
+- cohesion and cohesive devices
+- stance features
+- verb aspect
+- adverbs of degree and negation
+- verb phrase ellipsis
+- colour terms
+- meta-discourse markers
+- formulaic language 
+
+]
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+]
+
+&lt;img src="figures/pos_example.png" width="792" style="display: block; margin: auto;" /&gt;
+
+.citation[ (van
+Rooy, 2015: 80)]
+
+]
+
+
+
+.pull-right[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"&gt;&lt;/path&gt;&lt;/svg&gt; Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- semantic, syntactic and .green[discourse features]
+- .green[verb] valency patterns
+- grammatical complexity
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- stance features
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] phrase ellipsis
+- colour terms
+- meta-discourse markers
+- formulaic language 
+
+]
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+1. Syntactic parsing
+]
+
+]
+
+.pull-right[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"&gt;&lt;/path&gt;&lt;/svg&gt; Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- semantic, syntactic and .green[discourse features]
+- .green[verb] valency patterns
+- grammatical complexity
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- stance features
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] phrase ellipsis
+- colour terms
+- meta-discourse markers
+- formulaic language 
+
+]
+
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+2. Syntactic parsing
+]
+
+&lt;img src="figures/synt_parse_example.png" width="609" style="display: block; margin: auto;" /&gt;
+
+.citation[ (Newman and Cox, 2021: 32)]
+
+]
+
+
+
+.pull-right[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"&gt;&lt;/path&gt;&lt;/svg&gt; Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- semantic, .purple[syntactic] and .green[discourse features]
+- .green[verb] .purple[valency patterns]
+- .purple[grammatical complexity]
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- stance features
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] .purple[phrase] ellipsis
+- colour terms
+- meta-discourse markers
+- .purple[formulaic language]
+
+]
+
+---
+
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+2. Syntactic parsing
+3. Semantic annotation
+]
+
+
+]
+
+
+
+.pull-right[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"&gt;&lt;/path&gt;&lt;/svg&gt; Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- semantic, .purple[syntactic] and .green[discourse features]
+- .green[verb] .purple[valency patterns]
+- .purple[grammatical complexity]
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- stance features
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] .purple[phrase] ellipsis
+- colour terms
+- meta-discourse markers
+- .purple[formulaic language]
+
+]
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+2. Syntactic parsing
+3. Semantic annotation
+]
+
+&lt;img src="figures/semantic_tags_example.png" width="996" style="display: block; margin: auto;" /&gt;
+
+.citation[ (Newman and Cox, 2021: 35)]
+
+]
+
+
+
+
+.pull-right[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"&gt;&lt;/path&gt;&lt;/svg&gt; Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- .orange[semantic], .purple[syntactic] and .green[discourse features]
+- .green[verb] .purple[valency patterns]
+- .purple[grammatical complexity]
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- .orange[stance features]
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] .purple[phrase] ellipsis
+- .orange[colour terms]
+- .orange[meta-discourse markers]
+- .purple[formulaic language]
+
+]
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+2. Syntactic parsing
+3. .grey[Semantic annotation]
+]
+
+]
+
+---
+
+## What are the advantages of automatic annotation?
+
+
+.pull-left[
+.can-edit[
+- 
+- 
+]
+]
+
+--
+
+.pull-right[
+.large[
+1. speed
+2. reliability
+]
+]
+
+
+---
+
+## Today's session
+
+- Text-preprocessing
+- POS-tagging and lemmatization
+- Hands on activity: *POS-tagging and lemmatization*
+- Syntactic annotation
+
+&lt;br&gt; 
+
+*Coffee break*
+
+&lt;br&gt;
+
+- Hands on activity: *Syntactic annotation*
+- Accuracy measures
+- Hands on activity: *Calculating accuracy measures*
+- Final remarks
 
 
 ---
 
 ## How this workshop will work
 
-.pull-left[
-.large[**Level 1.**] Basic webtools (beginner)
+&lt;img src="figures/adventure.webp" width="55%" style="display: block; margin: auto;" /&gt;
 
+--
+
+.center[
+**Option 1.** Webtools/Excel  
+**Option 2.** R
 ]
 
 
+---
+
+class: header-slide
+
+# Text-preprocessing
+
+---
+
+## What do you notice about this text?
+
+.pull-left[
+
+.small[
+I agree that successful people try &amp;lt;e&amp;gt;news&amp;lt;/e&amp;gt; things and take risk rather than only doing what they already know how to do well,for these reasons;  By trying new things  allow you to be curious  to know how someone did it and you will find out how to do it too, that way it make you make a research.   By trying new things allow you to be positive in your mind and to have a great desire to succed no matter how difficult is the situation. By trying new things you no that you should be openminded,go through disscussion with people who have done the same thing to learn their ways of doing thing, you should meet or have conversation with a lot of these people in other to learn from their experiences. By trying new things you take a big risks, like  in " french we say if you don ’t risk you don't  have anything",risk in a goog way to takle something. We never know if we might succed or not the only way to do it is to risk.Since we do not loose anything when we risk.ed As for me doing the same thing every day become boring,i can say is a waste of energy and time, To conclude,people who succed try new things and take risks rather than only doing what they already know how to do well.
+]
+
+]
+
 .pull-right[
-&lt;img src="figures/level1.png" width="448" style="display: block; margin: auto;" /&gt;
+&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Ignore spelling mistakes for the time being...
+]
+
+---
+
+## What do you notice about this text?
+
+.pull-left[
+
+.small[
+I agree that successful people try .content-box-red[&amp;lt;e&amp;gt;news&amp;lt;/e&amp;gt;] things and take risk rather than only doing what they already know how to do .content-box-red[well,for] these reasons;  By trying new things  allow you to be curious  to know how someone did it and you will find out how to do it too, that way it make you make a research.   By trying new things allow you to be positive in your mind and to have a great desire to succed no matter how difficult is the situation. By trying new things you no that you should be .content-box-red[openminded,go] through disscussion with people who have done the same thing to learn their ways of doing thing, you should meet or have conversation with a lot of these people in other to learn from their experiences. By trying new things you take a big risks, like  in " french we say if you .content-box-red[don ’t] risk you don't  have .content-box-red[anything",risk] in a goog way to takle something. We never know if we might succed or not the only way to do it is to risk.Since we do not loose anything when we risk.ed As for me doing the same thing every day become .content-box-red[boring,i] can say is a waste of energy and time, To .content-box-red[conclude,people] who succed try new things and take risks rather than only doing what they already know how to do well.
+]
+]
+
+.pull-right[
+
+(Non-exhaustive) list of things that can cause issues for automatic tools: 
+
+- (Inconsistent) file encoding
+- Spacing 
+  - Lack of space between words 
+  - Unnecessary space between words
+  - Double space between words
+- 'Stylized' apostrophes or quotation marks
+- Accented characters (e.g., *à*)
+- Special characters (e.g., *, %, |)
+- Inconsistent spelling rules (e.g., email/e-mail)
+- Coding schemes (e.g., XML)
 
 ]
 
 ---
 
-## How this workshop will work
+## What do you notice about this text?
 
 .pull-left[
-.large[**Level 1.**] Basic webtools (beginner)  
-.large[**Level 2.**] SketchEngine (intermediate)
 
+.small[
+I agree that successful people try .content-box-red[&amp;lt;e&amp;gt;news&amp;lt;/e&amp;gt;] things and take risk rather than only doing what they already know how to do .content-box-red[well,for] these reasons;  By trying new things  allow you to be curious  to know how someone did it and you will find out how to do it too, that way it make you make a research.   By trying new things allow you to be positive in your mind and to have a great desire to succed no matter how difficult is the situation. By trying new things you no that you should be .content-box-red[openminded,go] through disscussion with people who have done the same thing to learn their ways of doing thing, you should meet or have conversation with a lot of these people in other to learn from their experiences. By trying new things you take a big risks, like  in " french we say if you .content-box-red[don ’t] risk you don't  have .content-box-red[anything",risk] in a goog way to takle something. We never know if we might succed or not the only way to do it is to risk.Since we do not loose anything when we risk.ed As for me doing the same thing every day become .content-box-red[boring,i] can say is a waste of energy and time, To .content-box-red[conclude,people] who succed try new things and take risks rather than only doing what they already know how to do well.
+]
 ]
 
-
 .pull-right[
-&lt;img src="figures/level2.png" width="448" style="display: block; margin: auto;" /&gt;
+
+(Non-exhaustive) list of things that can cause issues for automatic tools: 
+
+- (Inconsistent) file encoding
+- Spacing 
+  - Lack of space between words 
+  - Unnecessary space between words
+  - Double space between words
+- 'Stylized' apostrophes or quotation marks
+- Accented characters (e.g., *à*)
+- Special characters (e.g., *, %, |)
+- Inconsistent spelling rules (e.g., email/e-mail)
+- Coding schemes (e.g., XML)
+
+.content-box-blue[
+&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Importance of **knowing your corpus**...
+
+
+]
 
 ]
 
 ---
 
-## How this workshop will work
+## Methods of text cleaning/preprocessing
+
+.center[
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"&gt;&lt;/path&gt;&lt;/svg&gt; Time intensive
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"&gt;&lt;/path&gt;&lt;/svg&gt; Replicable
+]
+
+1. Manually
+2. Semi-manually using search and replace (e.g., in Excel)
+3. Semi-manually using [regular expressions](https://regex101.com/) (e.g., in a text editor)
+4. Semi-automatically using a script with regular expressions (e.g., in R or python)
+
+.center[
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"&gt;&lt;/path&gt;&lt;/svg&gt; Time intensive
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"&gt;&lt;/path&gt;&lt;/svg&gt; Replicable
+]
+
+
+---
+
+## Text pre-processing in Excel
+
+&lt;img src="figures/excel_clean.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+`SUBSTITUTE()` function (For more details see [here](https://support.microsoft.com/en-au/office/substitute-function-6434944e-a904-4336-a9b0-1e58df3bc332))    
+
+
+`=SUBSTITUTE(text, old_text, new_text, [instance_num])`  
+`=SUBSTITUTE(A2,"’", "'")`
+
+
+---
+
+## Text pre-processing in R
+
+
+```r
+library(stringr); library(dplyr)
+```
+
+
+```r
+text &lt;- "This is a sentence that ’s got a stylized apostrophe."
+
+text %&gt;%
+  # replace stylized apostrophes
+  str_replace_all("’", "'") %&gt;%
+  # remove spaces before apostrophes 
+  # if they are:
+  # - preceded by the beginning of a string, space or final punctuation
+  # - followed by only one or two letters (e.g., don't, they're)
+  # - and then followed by either a space, final punctuation or end of string
+  str_replace_all("[\\s\\.\\?\\!^]'([^\\s]{1,2}[\\s\\.\\?\\!$])", "'\\1")
+```
+
+```
+## [1] "This is a sentence that's got a stylized apostrophe."
+```
+
+---
+
+## With both approaches
+
+.center[
+.content-box-red[
+&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Test (and re-test) your pre-processing pipeline! 
+]
+]
+
+- Be careful of inadvertent changes (especially when using regular expressions)  
+    E.g. *don't* vs. *he said 'don't worry'*  
+- Be aware the different tools require different approaches (e.g., contractions separate or apart)
+- Never edit the original corpus files!
+- Keep track of any changes you make
+
+--
+
+
+```r
+text &lt;- "'He ’ll be comin' round the 'mountain' when he comes,' I said."
+
+text %&gt;%
+  str_replace_all("’", "'") %&gt;%
+  str_replace_all("[\\s\\.\\?\\!^]'([^\\s]{1,2}[\\s\\.\\?\\!$])", "'\\1")
+```
+
+```
+## [1] "'He'll be comin' round the 'mountain' when he comes,' I said."
+```
+
+---
+
+## So why is pre-processing so important?
+
+
+--
+
+
+```
+ [1] "I"                       "agree"                  
+ [3] "that"                    "successful"             
+ [5] "people"                  "try"                    
+ [7] "&amp;lt;e&amp;gt;news&amp;lt;/e&amp;gt;" "things"                 
+ [9] "and"                     "take"                   
+[11] "risk"                    "rather"                 
+[13] "than"                    "only"                   
+[15] "doing"                   "what"                   
+[17] "they"                    "already"                
+[19] "know"                    "how"                    
+[21] "to"                      "do"                     
+[23] "well,for"                "these"                  
+[25] "reasons;"                ""                       
+[27] "By"                      "trying"                 
+[29] "new"                     "things"                 
+```
+
+
+---
+
+## Tokenization
+
+**Token**: "the smallest unit of a corpus" .citation[ (Krause, Lüdeling, Odebrecht, and Zeldes, 2012: 2)]  
+--
+
+  = words, numbers, punctuation marks, quotation marks etc.  
+--
+  
+  = syllable, phoneme, etc...  
+--
 
 .pull-left[
-.large[**Level 1.**] Basic webtools (beginner)  
-.large[**Level 2.**] SketchEngine (intermediate)  
-.large[**Level 3.**] R (advanced)  
+Easiest method (for English): 
+- split tokens at spaces
+- split sentences at periods (.), exclamation marks (!) or question marks (?)
+
+*What problems do you see with this method?*
 
 ]
+
+--
+
+.pull-right[
+Potential problems:
+
+.small[
+- clitics (isn't, ain't)
+- missing whitespace 
+- periods (etc., U.S.A., fig.)
+- ordinal numbers 
+- multiword expressions (New York-based, 10 000, as well as)
+- word-internal punctuation (relationship(s), "Rambo"-type)
+- (de)hypthenation (preprocessing vs. pre-processing)
+- quoted speech (“You still don’t have an accountant?” Ellis said.)
+- ideographic languages (e.g., Chinese, Japanese)
+]
+
+
+.content-box-blue[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"&gt;&lt;/path&gt;&lt;/svg&gt; For more information about tokenization see Zeldes (2020) and Schmid (2008).  
+
+
+]
+]
+
+
+---
+
+class: header-slide
+
+# POS-tagging and lemmatization
+
+
+---
+
+## Overview
+
+.pull-left[
+
+.medium[Each word in the corpus is 'tagged' (labelled) with information about its grammatical category.]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M507.73 109.1c-2.24-9.03-13.54-12.09-20.12-5.51l-74.36 74.36-67.88-11.31-11.31-67.88 74.36-74.36c6.62-6.62 3.43-17.9-5.66-20.16-47.38-11.74-99.55.91-136.58 37.93-39.64 39.64-50.55 97.1-34.05 147.2L18.74 402.76c-24.99 24.99-24.99 65.51 0 90.5 24.99 24.99 65.51 24.99 90.5 0l213.21-213.21c50.12 16.71 107.47 5.68 147.37-34.22 37.07-37.07 49.7-89.32 37.91-136.73zM64 472c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"&gt;&lt;/path&gt;&lt;/svg&gt; Under the hood: 
+1. All tokens with unambiguous POS labels are assigned tags (e.g., on the basis of a dictionary)
+2. Contextual features (e.g., surrounding tags, morphological endings) used in a statistical model to predict the tags of ambiguous items 
+
+.citation[ (Kyle, 2021: 6)]
+
+]
+
+--
+
+.pull-right[
+.medium[
+She &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"&gt;&lt;/path&gt;&lt;/svg&gt; `pronoun`  
+sells &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"&gt;&lt;/path&gt;&lt;/svg&gt; `verb`  
+seashells &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"&gt;&lt;/path&gt;&lt;/svg&gt; `noun`  
+by &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"&gt;&lt;/path&gt;&lt;/svg&gt; `preposition`  
+the &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"&gt;&lt;/path&gt;&lt;/svg&gt; `determiner`  
+seashore &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"&gt;&lt;/path&gt;&lt;/svg&gt; `noun`  
+. &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"&gt;&lt;/path&gt;&lt;/svg&gt; `punctuation`  
+]
+]
+
+---
+
+## Tagsets for English
+
+- CLAWS (Constituent Likelihood Automatic Word-tagging System)
+  - [CLAWS 5](http://ucrel.lancs.ac.uk/claws5tags.html) = 60 tags 
+  - [CLAWS 7](http://ucrel.lancs.ac.uk/claws7tags.html) = 160 tags
+- [PENN Treebank Tagset](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/Penn-Treebank-Tagset.pdf)
+- [BNC Tagset](http://www.natcorp.ox.ac.uk/docs/c5spec.html) 
+- [Universal POS tags](https://universaldependencies.org/u/pos/)
+
+*Different tagsets, (subtly) different theories of grammar*
+
+--
+
+&lt;img src="figures/rid.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+.center[
+.citation[ (Newman and Cox, 2021: 21)
+ ]]
+
+--
+
+
+.content-box-blue[
+&lt;svg viewBox="0 0 352 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M176 80c-52.94 0-96 43.06-96 96 0 8.84 7.16 16 16 16s16-7.16 16-16c0-35.3 28.72-64 64-64 8.84 0 16-7.16 16-16s-7.16-16-16-16zM96.06 459.17c0 3.15.93 6.22 2.68 8.84l24.51 36.84c2.97 4.46 7.97 7.14 13.32 7.14h78.85c5.36 0 10.36-2.68 13.32-7.14l24.51-36.84c1.74-2.62 2.67-5.7 2.68-8.84l.05-43.18H96.02l.04 43.18zM176 0C73.72 0 0 82.97 0 176c0 44.37 16.45 84.85 43.56 115.78 16.64 18.99 42.74 58.8 52.42 92.16v.06h48v-.12c-.01-4.77-.72-9.51-2.15-14.07-5.59-17.81-22.82-64.77-62.17-109.67-20.54-23.43-31.52-53.15-31.61-84.14-.2-73.64 59.67-128 127.95-128 70.58 0 128 57.42 128 128 0 30.97-11.24 60.85-31.65 84.14-39.11 44.61-56.42 91.47-62.1 109.46a47.507 47.507 0 0 0-2.22 14.3v.1h48v-.05c9.68-33.37 35.78-73.18 52.42-92.16C335.55 260.85 352 220.37 352 176 352 78.8 273.2 0 176 0z"&gt;&lt;/path&gt;&lt;/svg&gt; Select the tagset that is right for your data/research question.
+
+]
+
+
+---
+
+## Example
+
+.pull-left[
+&lt;img src="figures/pos_example.png" width="792" style="display: block; margin: auto;" /&gt;&lt;img src="figures/pos_example_raw.png" width="1024" style="display: block; margin: auto;" /&gt;
+
+.citation[ (van
+Rooy, 2015: 80-81)]
+]
+
+
+--
+
+.pull-right[
+
+
+
+**Verbs:** launged_VVD, find_VV0, is_VBZ, are_VBR  
+&lt;br&gt;
+
+**Nouns:** media_NN, fact_NN1, AIDS_NN1, county_NN1, awareness_NN1, people_NN, mension_NN1, campaigns_NN2, fact_NN1
+
+= [CLAWS C7 Tagset](https://ucrel.lancs.ac.uk/claws7tags.html)
+
+
+]
+
+--
+
+.center[
+.content-box-blue[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"&gt;&lt;/path&gt;&lt;/svg&gt; What does the tag PPIS2 refer to?]
+]
+
+--
+
+.center[
+
+.content-box-blue[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"&gt;&lt;/path&gt;&lt;/svg&gt; What do you notice about the learner errors? (e.g., 'mension', 'is awareness campaigns')]
+]
+
+
+---
+
+## Types of output: *Horizontal*
+
+
+`We_PPIS2 find_VV0 that_CST in_II fact_NN1 these_DD2 people_NN are_VBR the_AT most_RGT exposed_JJ to_II media_NN not_XX to_II mension_NN1 the_AT fact_NN1 that_CST there_EX is_VBZ forever_RT AIDS_NN1 awareness_NN1 campaigns_NN2 launged_VVD through_RP out_RP the_AT county_NN1 ._. `
+
+---
+
+## Types of output: *(Pseudo)-XML*
+
+
+
+```
+&lt;w id="2.1" pos="PPIS2"&gt;We&lt;/w&gt;
+&lt;w id="2.2" pos="VV0"&gt;find&lt;/w&gt;
+&lt;w id="2.3" pos="CST"&gt;that&lt;/w&gt;
+&lt;w id="2.4" pos="II"&gt;in&lt;/w&gt;
+&lt;w id="2.5" pos="NN1"&gt;fact&lt;/w&gt;
+&lt;w id="2.6" pos="DD2"&gt;these&lt;/w&gt;
+&lt;w id="2.7" pos="NN"&gt;people&lt;/w&gt;
+&lt;w id="2.8" pos="VBR"&gt;are&lt;/w&gt;
+&lt;w id="2.9" pos="AT"&gt;the&lt;/w&gt;
+&lt;w id="2.10" pos="RGT"&gt;most&lt;/w&gt;
+&lt;w id="2.11" pos="JJ"&gt;exposed&lt;/w&gt;
+&lt;w id="2.12" pos="II"&gt;to&lt;/w&gt;
+&lt;w id="2.13" pos="NN"&gt;media&lt;/w&gt;
+&lt;w id="2.14" pos="XX"&gt;not&lt;/w&gt;
+&lt;w id="2.15" pos="II"&gt;to&lt;/w&gt;
+&lt;w id="2.16" pos="NN1"&gt;mension&lt;/w&gt;
+&lt;w id="2.17" pos="AT"&gt;the&lt;/w&gt;
+&lt;w id="2.18" pos="NN1"&gt;fact&lt;/w&gt;
+&lt;w id="2.19" pos="CST"&gt;that&lt;/w&gt;
+&lt;w id="2.20" pos="EX"&gt;there&lt;/w&gt;
+```
+
+
+---
+
+## Types of output: *Vertical*
+
+
+```
+##    idx sntc   token tag lttr      wclass
+## 1    1    1      We  PP    2     pronoun
+## 2    2    1    find VBP    4        verb
+## 3    3    1    that  IN    4 preposition
+## 4    4    1      in  IN    2 preposition
+## 5    5    1    fact  NN    4        noun
+## 6    6    1   these  DT    5  determiner
+## 7    7    1  people NNS    6        noun
+## 8    8    1     are VBP    3        verb
+## 9    9    1     the  DT    3  determiner
+## 10  10    1    most RBS    4      adverb
+## 11  11    1 exposed VBN    7        verb
+## 12  12    1      to  TO    2          to
+## 13  13    1   media NNS    5        noun
+## 14  14    1     not  RB    3      adverb
+## 15  15    1      to  TO    2          to
+## 16  16    1 mension  NN    7        noun
+## 17  17    1     the  DT    3  determiner
+## 18  18    1    fact  NN    4        noun
+## 19  19    1    that  IN    4 preposition
+## 20  20    1   there  EX    5 existential
+```
+
+
+---
+
+
+## Lemmatization
+
+.medium[**Lemma:** "a 'base form', which provides a level of abstraction from any inflection that might appear in the original orthographic word."]  
+.citation[ (Newman and Cox, 2021: 29)]
+
+.pull-left[
+&lt;img src="figures/pos_example_raw.png" width="1024" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+we find that in fact these people be the most expose to medium not to mension the fact that there be forever AIDS awareness campaign launged through out the county .
+]
+
+---
+
+# Example
+
+
+```
+##    idx sntc   token tag     lemma lttr      wclass
+## 1    1    1      We  PP        we    2     pronoun
+## 2    2    1    find VBP      find    4        verb
+## 3    3    1    that  IN      that    4 preposition
+## 4    4    1      in  IN        in    2 preposition
+## 5    5    1    fact  NN      fact    4        noun
+## 6    6    1   these  DT     these    5  determiner
+## 7    7    1  people NNS    people    6        noun
+## 8    8    1     are VBP        be    3        verb
+## 9    9    1     the  DT       the    3  determiner
+## 10  10    1    most RBS      most    4      adverb
+## 11  11    1 exposed VBN    expose    7        verb
+## 12  12    1      to  TO        to    2          to
+## 13  13    1   media NNS    medium    5        noun
+## 14  14    1     not  RB       not    3      adverb
+## 15  15    1      to  TO        to    2          to
+## 16  16    1 mension  NN &lt;unknown&gt;    7        noun
+## 17  17    1     the  DT       the    3  determiner
+## 18  18    1    fact  NN      fact    4        noun
+## 19  19    1    that  IN      that    4 preposition
+## 20  20    1   there  EX     there    5 existential
+```
+
+
+---
+
+## Webtools
+
+.pull-left[
+.center[
+[TreeTagger](https://cental.uclouvain.be/treetagger/)]
+
+&lt;img src="figures/treetagger.png" width="3389" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+.center[
+[CLAWS](http://ucrel-api.lancaster.ac.uk/claws/free.html) ]
+&lt;img src="figures/claws.png" width="3389" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# R
+
+
+
+```r
+library(koRpus); library(koRpus.lang.en)
+
+file &lt;- "data/example_texts/ICLE-TS-NOUN-0005.1.txt"
+  
+treetag(
+  file,
+  treetagger="manual",
+  lang="en",
+  TT.options=list(
+    # Change this to the location where TreeTagger is installed
+    path="/Applications/tree-tagger",
+    preset="en"
+  ),
+  doc_id=basename(file)
+)
+```
+
+.pull-left[
+.content-box-red[
+
+&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Note: For this to work, both TreeTagger and the appropriate tagsets must first be installed locally on your computer. See instructions [here](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/)
+
+]
+]
+
+--
+
+.pull-right[
+.content-box-blue[
+&lt;svg viewBox="0 0 352 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M176 80c-52.94 0-96 43.06-96 96 0 8.84 7.16 16 16 16s16-7.16 16-16c0-35.3 28.72-64 64-64 8.84 0 16-7.16 16-16s-7.16-16-16-16zM96.06 459.17c0 3.15.93 6.22 2.68 8.84l24.51 36.84c2.97 4.46 7.97 7.14 13.32 7.14h78.85c5.36 0 10.36-2.68 13.32-7.14l24.51-36.84c1.74-2.62 2.67-5.7 2.68-8.84l.05-43.18H96.02l.04 43.18zM176 0C73.72 0 0 82.97 0 176c0 44.37 16.45 84.85 43.56 115.78 16.64 18.99 42.74 58.8 52.42 92.16v.06h48v-.12c-.01-4.77-.72-9.51-2.15-14.07-5.59-17.81-22.82-64.77-62.17-109.67-20.54-23.43-31.52-53.15-31.61-84.14-.2-73.64 59.67-128 127.95-128 70.58 0 128 57.42 128 128 0 30.97-11.24 60.85-31.65 84.14-39.11 44.61-56.42 91.47-62.1 109.46a47.507 47.507 0 0 0-2.22 14.3v.1h48v-.05c9.68-33.37 35.78-73.18 52.42-92.16C335.55 260.85 352 220.37 352 176 352 78.8 273.2 0 176 0z"&gt;&lt;/path&gt;&lt;/svg&gt; See [this vignette](https://cran.r-project.org/web/packages/koRpus/vignettes/koRpus_vignette.html) for more information about the `koRpus` package.
+]
+]
+
+---
+
+## Activity 1: POS-tagging
+
+.pull-left[
+**Webtools/Excel Option**
+
+Open `activity_02_pos-tagging.docx` and follow the instructions.
+
+**R Option**
+
+Open `activity_02_pos-tagging.R` and follow the instructions.
+
+.content-box-blue[
+&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"&gt;&lt;/path&gt;&lt;/svg&gt; Remember that all materials and sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023). 
+
+1. Click on .content-box-green[ `&lt; &gt; Code`].
+2. `Download ZIP` to download all files.
+]
+
+]
+
+
+---
+
+## Activity 1: POS-tagging
+
+.pull-left[
+**Webtools/Excel Option**
+
+Open `activity_02_pos-tagging.docx` and follow the instructions.
+
+**R Option**
+
+Open `activity_02_pos-tagging.R` and follow the instructions.
+
+.content-box-blue[
+&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"&gt;&lt;/path&gt;&lt;/svg&gt; Remember that all materials and are sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023)
+
+1. Click on .content-box-green[ `&lt; &gt; Code`].
+2. `Download ZIP` to download all files.
+]
+
+]
+
+.pull-right[
+
+*Questions*  
+.small[
+1. What do you notice about the ICLE texts? What pre-processing steps (if any) might be necessary before using automatic annotation tools?
+1. R: What 'special characters' do you notice?
+1. R: How many 'words' and 'sentences' does BRFF1065.txt contain?
+1. R: What is the average sentence length of BRFF1065.txt? 
+1. WT: How many tokens were tagged with CLAWS (v5)?
+1. WT: What is the tag for the base form of a lexical verb in the C5 tagset?
+1. WT: What is the tag for the base form of a lexical verb in the C7 tagset?
+1. WT: What is meant by ‘[VVZ/86] NN2/14’?
+1. WT: What does the code ‘\@card\@’ mean?
+1. How many adjectives (JJ) are there in BRFF1065.txt?
+1. How many common nouns (NN, NNS) are there in BRFF1065.txt?
+1. How should you best deal with  unknown lemmas?
+1. What are the most frequent verb lemmas in the corpus?
+
+]
+]
+
+---
+
+class: header-slide
+
+# Syntactic parsing
+
+
+---
+
+## Overview
+
+.pull-left[
+
+.medium[Labels of the syntactic connections between words (heads and dependents)]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M507.73 109.1c-2.24-9.03-13.54-12.09-20.12-5.51l-74.36 74.36-67.88-11.31-11.31-67.88 74.36-74.36c6.62-6.62 3.43-17.9-5.66-20.16-47.38-11.74-99.55.91-136.58 37.93-39.64 39.64-50.55 97.1-34.05 147.2L18.74 402.76c-24.99 24.99-24.99 65.51 0 90.5 24.99 24.99 65.51 24.99 90.5 0l213.21-213.21c50.12 16.71 107.47 5.68 147.37-34.22 37.07-37.07 49.7-89.32 37.91-136.73zM64 472c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"&gt;&lt;/path&gt;&lt;/svg&gt; Under the hood: 
+1. Texts are POS-tagged.
+1. POS tags used in conjunction with phrase-structure rules (generated from training algorithms on large corpora) to generate several possible *parse trees* for each sentence. 
+1. Statistical or machine learning algorithms are used to select the most probable parse tree for a given sentence.
+
+.citation[ (Kyle, 2021: 7)]
+
+]
+
+--
+
+.pull-right[
+&lt;img src="figures/synt_parse_example.png" width="609" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+## Overview
+
+.pull-left[
+
+.medium[Labels of the syntactic connections between words (heads and dependents)]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M507.73 109.1c-2.24-9.03-13.54-12.09-20.12-5.51l-74.36 74.36-67.88-11.31-11.31-67.88 74.36-74.36c6.62-6.62 3.43-17.9-5.66-20.16-47.38-11.74-99.55.91-136.58 37.93-39.64 39.64-50.55 97.1-34.05 147.2L18.74 402.76c-24.99 24.99-24.99 65.51 0 90.5 24.99 24.99 65.51 24.99 90.5 0l213.21-213.21c50.12 16.71 107.47 5.68 147.37-34.22 37.07-37.07 49.7-89.32 37.91-136.73zM64 472c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"&gt;&lt;/path&gt;&lt;/svg&gt; Under the hood: 
+1. Texts are POS-tagged.
+1. POS tags used in conjunction with phrase-structure rules (generated from training algorithms on large corpora) to generate several possible *parse trees* for each sentence. 
+1. Statistical or machine learning algorithms are used to select the most probable parse tree for a given sentence.
+
+.citation[ (Kyle, 2021: 7)]
+
+]
+
 
 
 .pull-right[
-&lt;img src="figures/level3.png" width="448" style="display: block; margin: auto;" /&gt;
+&lt;img src="figures/synt_parse_example.png" width="609" style="display: block; margin: auto;" /&gt;&lt;img src="figures/parse-phrase_structure.png" width="809" style="display: block; margin: auto;" /&gt;
 
 ]
+
+---
+
+## Dependency models for English
+
+- [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/) 
+- [spaCy](https://spacy.io/models)
+- [Universal dependencies](https://universaldependencies.org/)
+
+
+*Different models, (subtly) different theories of grammar*
+
+---
+
+## Types of output: *CoNLL*
+
+*= Conference on Natural Language Learning*
+
+
+
+
+
+```
+  doc_id sentence_id token_id token lemma   pos head_token_id dep_rel
+1  text1           1        1   She   she  PRON             2   nsubj
+2  text1           1        2   ran   run  VERB             2    ROOT
+3  text1           1        3  over  over   ADP             2    prep
+4  text1           1        4   the   the   DET             5     det
+5  text1           1        5  hill  hill  NOUN             3    pobj
+6  text1           1        6     .     . PUNCT             2   punct
+```
+
+
+--
+
+
+&lt;img src="figures/spacy_example.svg" width="40%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+## Types of output: [*FoLiA XML*](https://proycon.github.io/folia/)
+
+*= Format for Linguistic Annotation*
+
+&lt;img src="figures/folia_example.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Types of output: *json*
+
+.pull-left[
+
+```
+ [1] "{"                                                                          
+ [2] "  \"text\": \"She ran over the hill\","                                     
+ [3] "  \"ents\": [],"                                                            
+ [4] "  \"sents\": ["                                                             
+ [5] "    {"                                                                      
+ [6] "      \"start\": 0,"                                                        
+ [7] "      \"end\": 21"                                                          
+ [8] "    }"                                                                      
+ [9] "  ],"                                                                       
+[10] "  \"tokens\": ["                                                            
+[11] "    {"                                                                      
+[12] "      \"id\": 0,"                                                           
+[13] "      \"start\": 0,"                                                        
+[14] "      \"end\": 3,"                                                          
+[15] "      \"tag\": \"PRP\","                                                    
+[16] "      \"pos\": \"PRON\","                                                   
+[17] "      \"morph\": \"Case=Nom|Gender=Fem|Number=Sing|Person=3|PronType=Prs\","
+[18] "      \"lemma\": \"she\","                                                  
+[19] "      \"dep\": \"nsubj\","                                                  
+[20] "      \"head\": 1"                                                          
+[21] "    },"                                                                     
+[22] "    {"                                                                      
+[23] "      \"id\": 1,"                                                           
+[24] "      \"start\": 4,"                                                        
+[25] "      \"end\": 7,"                                                          
+[26] "      \"tag\": \"VBD\","                                                    
+[27] "      \"pos\": \"VERB\","                                                   
+[28] "      \"morph\": \"Tense=Past|VerbForm=Fin\","                              
+[29] "      \"lemma\": \"run\","                                                  
+[30] "      \"dep\": \"ROOT\","                                                   
+[31] "      \"head\": 1"                                                          
+[32] "    },"                                                                     
+[33] "    {"                                                                      
+[34] "      \"id\": 2,"                                                           
+[35] "      \"start\": 8,"                                                        
+[36] "      \"end\": 12,"                                                         
+[37] "      \"tag\": \"IN\","                                                     
+[38] "      \"pos\": \"ADP\","                                                    
+[39] "      \"morph\": \"\","                                                     
+[40] "      \"lemma\": \"over\","                                                 
+[41] "      \"dep\": \"prep\","                                                   
+[42] "      \"head\": 1"                                                          
+[43] "    },"                                                                     
+[44] "    {"                                                                      
+[45] "      \"id\": 3,"                                                           
+[46] "      \"start\": 13,"                                                       
+[47] "      \"end\": 16,"                                                         
+[48] "      \"tag\": \"DT\","                                                     
+[49] "      \"pos\": \"DET\","                                                    
+[50] "      \"morph\": \"Definite=Def|PronType=Art\","                            
+[51] "      \"lemma\": \"the\","                                                  
+[52] "      \"dep\": \"det\","                                                    
+[53] "      \"head\": 4"                                                          
+[54] "    },"                                                                     
+[55] "    {"                                                                      
+[56] "      \"id\": 4,"                                                           
+[57] "      \"start\": 17,"                                                       
+[58] "      \"end\": 21,"                                                         
+[59] "      \"tag\": \"NN\","                                                     
+[60] "      \"pos\": \"NOUN\","                                                   
+[61] "      \"morph\": \"Number=Sing\","                                          
+[62] "      \"lemma\": \"hill\","                                                 
+[63] "      \"dep\": \"pobj\","                                                   
+[64] "      \"head\": 2"                                                          
+[65] "    }"                                                                      
+[66] "  ]"                                                                        
+[67] "}"                                                                          
+```
+]
+
+--
+
+.pull-right[
+.content-box-blue[
+&lt;svg viewBox="0 0 352 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M176 80c-52.94 0-96 43.06-96 96 0 8.84 7.16 16 16 16s16-7.16 16-16c0-35.3 28.72-64 64-64 8.84 0 16-7.16 16-16s-7.16-16-16-16zM96.06 459.17c0 3.15.93 6.22 2.68 8.84l24.51 36.84c2.97 4.46 7.97 7.14 13.32 7.14h78.85c5.36 0 10.36-2.68 13.32-7.14l24.51-36.84c1.74-2.62 2.67-5.7 2.68-8.84l.05-43.18H96.02l.04 43.18zM176 0C73.72 0 0 82.97 0 176c0 44.37 16.45 84.85 43.56 115.78 16.64 18.99 42.74 58.8 52.42 92.16v.06h48v-.12c-.01-4.77-.72-9.51-2.15-14.07-5.59-17.81-22.82-64.77-62.17-109.67-20.54-23.43-31.52-53.15-31.61-84.14-.2-73.64 59.67-128 127.95-128 70.58 0 128 57.42 128 128 0 30.97-11.24 60.85-31.65 84.14-39.11 44.61-56.42 91.47-62.1 109.46a47.507 47.507 0 0 0-2.22 14.3v.1h48v-.05c9.68-33.37 35.78-73.18 52.42-92.16C335.55 260.85 352 220.37 352 176 352 78.8 273.2 0 176 0z"&gt;&lt;/path&gt;&lt;/svg&gt; Can easily be [converted](https://www.convertcsv.com/json-to-csv.htm) into CSV/Excel format.  
+
+]
+]
+
+---
+
+## Webtools
+
+.pull-left[
+
+.center[[CoreNLP](https://corenlp.run/)]
+
+&lt;img src="figures/corenlp-webpage.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+.content-box-red[
+
+&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Note: May not be available due to planned outage from June 24th-July 3rd.  
+]
+]
+
+.pull-right[
+
+.center[[Hugging Face spaCy visualizer](https://huggingface.co/spaces/spacy/pipeline-visualizer)]
+
+&lt;img src="figures/hugging_face_visualizer.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+## R
+
+
+```r
+library(spacyr)
+
+spacy_initialize(model = "en_core_web_sm")
+
+text &lt;- "She ran over the hill."
+
+spacy_parse(text, dependency = TRUE)
+```
+
+.pull-left[
+.content-box-red[
+
+&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Note: For this to work, spaCy must be installed locally on your computer but this can be done within the spaCy package using the `spacy_install()` function.
+
+]
+]
+
+---
+
+## Activity 2: Syntactic parsing
+
+.pull-left[
+**Webtools/Excel Option**
+
+Open `activity_02_parsing.docx` and follow the instructions.
+
+**R Option**
+
+Open `activity_02_parsing.R` and follow the instructions.
+
+.content-box-blue[
+&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"&gt;&lt;/path&gt;&lt;/svg&gt; Remember that all materials and sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023). 
+
+1. Click on .content-box-green[ `&lt; &gt; Code`].
+2. `Download ZIP` to download all files.
+]
+
+]
+
+
+---
+
+## Activity 2: Syntactic parsing
+
+.pull-left[
+**Webtools/Excel Option**
+
+Open `activity_02_parsing.docx` and follow the instructions.
+
+**R Option**
+
+Open `activity_02_parsing.R` and follow the instructions.
+
+.content-box-blue[
+&lt;svg viewBox="0 0 496 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"&gt;&lt;/path&gt;&lt;/svg&gt; Remember that all materials and sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023). 
+
+1. Click on .content-box-green[ `&lt; &gt; Code`].
+2. `Download ZIP` to download all files.
+]
+
+]
+
+.pull-right[
+
+*Questions*  
+.small[
+
+
+]
+]
+
 
 ---
 
@@ -119,9 +1359,18 @@ class: center, middle, inverse, title-slide
 
 ---
 
-## &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"&gt;&lt;/path&gt;&lt;/svg&gt; Further reading 
+## &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"&gt;&lt;/path&gt;&lt;/svg&gt; Further reading  
+
+Kyle, K. (2021). Natural language processing for learner corpus research. International Journal of Learner Corpus Research, 7(1), 1–16.
 
 Newman, J., &amp; Cox, C. (2021). Corpus annotation. In A practical handbook of corpus linguistics (pp. 25–48). Springer. https://doi.org/10.4324/9780429269035-7
+
+Schmid, H. (2008). Tokenizing and part-of-speech tagging. In Corpus Linguistics: An International Handbook. de Gruyter.
+
+van Rooy, B. (2015). Annotating learner corpora. In S. Granger, G. Gilquin, &amp; F. Meunier (Eds.), The Cambridge handbook of learner corpus research (pp. 79–106). Cambridge University Press. https://doi.org/10.1017/CBO9781139649414.005
+
+Zeldes, A. (2020). Corpus Architecture. In M. Paquot &amp; S. Th. Gries (Eds.), A Practical Handbook of Corpus Linguistics (pp. 49–73). Springer International Publishing. https://link.springer.com/10.1007/978-3-030-46216-1_3
+
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

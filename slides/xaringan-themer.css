@@ -36,7 +36,7 @@
   --code-font-is-google: 1;
   --base-font-size: 25px;
   --text-font-size: 1rem;
-  --code-font-size: 0.5rem;
+  --code-font-size: .75rem;
   --code-inline-font-size: 1em;
   --header-h1-font-size: 1.75rem;
   --header-h2-font-size: 1.75rem;
@@ -318,6 +318,16 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 .purple{
   color: #88005d;
   font-weight: 900;
+}
+
+.orange{
+  color: #f29400;
+  font-weight: 900;
+}
+
+
+.grey{
+  color: #9a969a;
 }
 
 .col1{

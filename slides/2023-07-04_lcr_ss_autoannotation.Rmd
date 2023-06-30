@@ -44,10 +44,10 @@ def_text <- fp_text(font.size = 12, font.family = "Montserrat")
 ```
 
 ```{r xaringanExtra, echo=FALSE}
-xaringanExtra::use_xaringan_extra(c("tile_view"))
+xaringanExtra::use_xaringan_extra(c("tile_view", "editable"))
 ```
 
-```{r load_refs, include=FALSE, cache=FALSE, eval = FALSE }
+```{r load_refs, include=FALSE, cache=FALSE, eval = TRUE }
 library(RefManageR)
 BibOptions(check.entries = FALSE,
            bib.style = "authoryear",
@@ -55,10 +55,10 @@ BibOptions(check.entries = FALSE,
            style = "markdown",
            hyperlink = FALSE,
            dashed = FALSE,
-           no.print.fields = c("url", "doi", "issn", "isbn"))
-#bib <- RefManageR::ReadBib(here("references.bib"), check = TRUE)
-#save(bib, file = here("presentations", "bib.rdata"))
-load(here("defence", "bib.rdata"))
+           no.print.fields = c("url", "doi", "issn", "isbn"),
+           max.names = 3)
+bib <- RefManageR::ReadBib(here("slides", "references.bib"), check = TRUE)
+
 ```
 
 ```{r xaringan-banner, echo=FALSE}
@@ -89,63 +89,1270 @@ knitr::include_graphics("figures/qrcode.png")
 
 ---
 
+class: header-slide
 
-## Agenda
+# Introduction
 
 
 ---
 
-## How this workshop will work
+## About me
 
 .pull-left[
-.large[**Level 1.**] Basic webtools (beginner)
+
+`r icons::fontawesome("university")` Radboud University Nijmegen  
+`r icons::fontawesome("building")` Assistant professor in *Language and Communication*  
+`r icons::fontawesome("search")` Research interests:
+  - Phraseological complexity in L2 French
+  - Accuracy of automatic transcription software for L2 data
+  - Language development during study abroad 
+  - Crowdsourcing language assessment project 
 
 ]
 
-
 .pull-right[
-```{r}
-knitr::include_graphics("figures/level1.png")
+```{r, out.width="60%"}
+knitr::include_graphics("figures/id_pic_cropped_small.jpeg")
 ```
 
 ]
 
 ---
 
-## How this workshop will work
+## About you
 
 .pull-left[
-.large[**Level 1.**] Basic webtools (beginner)  
-.large[**Level 2.**] SketchEngine (intermediate)
+```{r, out.width="70%", fig.align='center'}
+library(leaflet)
+
+participant_info <- openxlsx::read.xlsx(here("info", "Learner Corpus Research Summer School Registration(1-29).xlsx")) %>%
+  select(Affiliation, Status, Lat, Long) %>%
+  distinct(Affiliation, .keep_all = TRUE) %>%
+  filter(!is.na(Lat)&!is.na(Long)) 
+
+```
+
+```{r map}
+leaflet(data = participant_info) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(~Long, ~Lat, label=~as.character(Affiliation))
+```
+
+]
+
+.pull-right[
+```{r, out.width="90%", fig.align='center'}
+participant_info %>%
+  mutate(Status = str_replace_all(Status, "PhD student.*", "PhD Student")) %>%
+  ggplot(aes(y = Status))+
+  geom_bar()+
+  theme_minimal(base_size = 22)+
+  theme(axis.title.y = element_blank(), axis.title.x = element_blank())
+```
 
 ]
 
 
+
+---
+
+## Your goals
+
+
+> "the correlation between corpus building and its exploitation"  
+--
+
+<br>
+> "most appropriate scientific approaches that one may use in analysing data from a learner corpus"  
+--
+
+<br>
+> "I would like to know which new (or less new) software might be used to analyse the corpus. "  
+--
+
+<br>
+> "how to build my own machine-learning scheme when using topic modelling?"  
+--
+
+<br>
+> "Secondly, I wish to get some theoretical knowledge & practical skills on programming"  
+
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+]
+
+]
+
+---
+
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+]
+
+```{r}
+knitr::include_graphics("figures/pos_example.png")
+```
+
+.citation[ `r Citep(bib, c("VanRooy2015"), before = "", after = ": 80")`]
+
+]
+
+--
+
+.pull-right[
+
+`r icons::fontawesome("search")` Your research:  
+
+- Spanish articles
+- morpho-syntactic and syntactic labels
+- morphology
+- semantic, syntactic and discourse features
+- verb valency patterns
+- grammatical complexity
+- grammatical case
+- cohesion and cohesive devices
+- stance features
+- verb aspect
+- adverbs of degree and negation
+- verb phrase ellipsis
+- colour terms
+- meta-discourse markers
+- formulaic language 
+
+]
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+]
+
+```{r}
+knitr::include_graphics("figures/pos_example.png")
+```
+
+.citation[ `r Citep(bib, c("VanRooy2015"), before = "", after = ": 80")`]
+
+]
+
+
+
+.pull-right[
+
+`r icons::fontawesome("search")` Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- semantic, syntactic and .green[discourse features]
+- .green[verb] valency patterns
+- grammatical complexity
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- stance features
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] phrase ellipsis
+- colour terms
+- meta-discourse markers
+- formulaic language 
+
+]
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+1. Syntactic parsing
+]
+
+]
+
+.pull-right[
+
+`r icons::fontawesome("search")` Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- semantic, syntactic and .green[discourse features]
+- .green[verb] valency patterns
+- grammatical complexity
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- stance features
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] phrase ellipsis
+- colour terms
+- meta-discourse markers
+- formulaic language 
+
+]
+
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+2. Syntactic parsing
+]
+
+```{r}
+knitr::include_graphics("figures/synt_parse_example.png")
+```
+
+.citation[ `r Citep(bib, c("Newman2021"), before = "", after = ": 32")`]
+
+]
+
+
+
+.pull-right[
+
+`r icons::fontawesome("search")` Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- semantic, .purple[syntactic] and .green[discourse features]
+- .green[verb] .purple[valency patterns]
+- .purple[grammatical complexity]
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- stance features
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] .purple[phrase] ellipsis
+- colour terms
+- meta-discourse markers
+- .purple[formulaic language]
+
+]
+
+---
+
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+2. Syntactic parsing
+3. Semantic annotation
+]
+
+
+]
+
+
+
+.pull-right[
+
+`r icons::fontawesome("search")` Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- semantic, .purple[syntactic] and .green[discourse features]
+- .green[verb] .purple[valency patterns]
+- .purple[grammatical complexity]
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- stance features
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] .purple[phrase] ellipsis
+- colour terms
+- meta-discourse markers
+- .purple[formulaic language]
+
+]
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+2. Syntactic parsing
+3. Semantic annotation
+]
+
+```{r}
+knitr::include_graphics("figures/semantic_tags_example.png")
+```
+
+.citation[ `r Citep(bib, c("Newman2021"), before = "", after = ": 35")`]
+
+]
+
+
+
+
+.pull-right[
+
+`r icons::fontawesome("search")` Your research:  
+
+- Spanish .green[articles]
+- .green[morpho-syntactic and syntactic labels]
+- .green[morphology]
+- .orange[semantic], .purple[syntactic] and .green[discourse features]
+- .green[verb] .purple[valency patterns]
+- .purple[grammatical complexity]
+- grammatical .green[case]
+- cohesion and .green[cohesive devices]
+- .orange[stance features]
+- .green[verb aspect]
+- .green[adverbs] of degree and negation
+- .green[verb] .purple[phrase] ellipsis
+- .orange[colour terms]
+- .orange[meta-discourse markers]
+- .purple[formulaic language]
+
+]
+
+---
+
+## What types of automatic annotation exist?
+
+.pull-left[
+.large[
+1. Part of Speech (POS) tagging
+2. Syntactic parsing
+3. .grey[Semantic annotation]
+]
+
+]
+
+---
+
+## What are the advantages of automatic annotation?
+
+
+.pull-left[
+.can-edit[
+- 
+- 
+]
+]
+
+--
+
+.pull-right[
+.large[
+1. speed
+2. reliability
+]
+]
+
+
+---
+
+## Today's session
+
+- Text-preprocessing
+- POS-tagging and lemmatization
+- Hands on activity: *POS-tagging and lemmatization*
+- Syntactic annotation
+
+<br> 
+
+*Coffee break*
+
+<br>
+
+- Hands on activity: *Syntactic annotation*
+- Accuracy measures
+- Hands on activity: *Calculating accuracy measures*
+- Final remarks
+
+
+---
+
+## How this workshop will work
+
+```{r, out.width="55%"}
+knitr::include_graphics("figures/adventure.webp")
+```
+
+--
+
+.center[
+**Option 1.** Webtools/Excel  
+**Option 2.** R
+]
+
+
+---
+
+class: header-slide
+
+# Text-preprocessing
+
+---
+
+## What do you notice about this text?
+
+.pull-left[
+
+.small[
+```{r, results='asis'}
+ex_txt_01 <- scan(here("data", "example_texts", "1638304.txt"), what = character(), sep = "\n") %>%
+  paste(., collapse = " ") %>%
+  str_replace(., "don't", "don 't") %>%
+  str_replace(., "'", "’") %>%
+  str_replace(., "news", "&lt;e&gt;news&lt;/e&gt;")
+cat(ex_txt_01)
+  
+```
+]
+
+]
+
+.pull-right[
+`r icons::fontawesome("exclamation-triangle")` Ignore spelling mistakes for the time being...
+]
+
+---
+
+## What do you notice about this text?
+
+.pull-left[
+
+.small[
+```{r, results='asis'}
+ex_txt_01 %>%
+  str_replace_all(., "(don ’t)", ".content-box-red[\\1]") %>%
+  str_replace_all(., "([^, ]+,[^, ]+)", ".content-box-red[\\1]" ) %>%
+  str_replace_all(., "(&lt;e&gt;news&lt;/e&gt;)", ".content-box-red[\\1]" ) %>%
+  cat()
+```
+]
+]
+
+.pull-right[
+
+(Non-exhaustive) list of things that can cause issues for automatic tools: 
+
+- (Inconsistent) file encoding
+- Spacing 
+  - Lack of space between words 
+  - Unnecessary space between words
+  - Double space between words
+- 'Stylized' apostrophes or quotation marks
+- Accented characters (e.g., *à*)
+- Special characters (e.g., *, %, |)
+- Inconsistent spelling rules (e.g., email/e-mail)
+- Coding schemes (e.g., XML)
+
+]
+
+---
+
+## What do you notice about this text?
+
+.pull-left[
+
+.small[
+```{r, results='asis'}
+ex_txt_01 %>%
+  str_replace_all(., "(don ’t)", ".content-box-red[\\1]") %>%
+  str_replace_all(., "([^, ]+,[^, ]+)", ".content-box-red[\\1]" ) %>%
+  str_replace_all(., "(&lt;e&gt;news&lt;/e&gt;)", ".content-box-red[\\1]" ) %>%
+  cat()
+```
+]
+]
+
+.pull-right[
+
+(Non-exhaustive) list of things that can cause issues for automatic tools: 
+
+- (Inconsistent) file encoding
+- Spacing 
+  - Lack of space between words 
+  - Unnecessary space between words
+  - Double space between words
+- 'Stylized' apostrophes or quotation marks
+- Accented characters (e.g., *à*)
+- Special characters (e.g., *, %, |)
+- Inconsistent spelling rules (e.g., email/e-mail)
+- Coding schemes (e.g., XML)
+
+.content-box-blue[
+`r icons::fontawesome("exclamation-triangle")` Importance of **knowing your corpus**...
+
+
+]
+
+]
+
+---
+
+## Methods of text cleaning/preprocessing
+
+.center[
+`r icons::fontawesome("plus")` Time intensive
+`r icons::fontawesome("minus")` Replicable
+]
+
+1. Manually
+2. Semi-manually using search and replace (e.g., in Excel)
+3. Semi-manually using [regular expressions](https://regex101.com/) (e.g., in a text editor)
+4. Semi-automatically using a script with regular expressions (e.g., in R or python)
+
+.center[
+`r icons::fontawesome("minus")` Time intensive
+`r icons::fontawesome("plus")` Replicable
+]
+
+
+---
+
+## Text pre-processing in Excel
+
+```{r, out.width="70%"}
+knitr::include_graphics("figures/excel_clean.png")
+```
+
+`SUBSTITUTE()` function (For more details see [here](https://support.microsoft.com/en-au/office/substitute-function-6434944e-a904-4336-a9b0-1e58df3bc332))    
+
+
+`=SUBSTITUTE(text, old_text, new_text, [instance_num])`  
+`=SUBSTITUTE(A2,"’", "'")`
+
+
+---
+
+## Text pre-processing in R
+
+```{r, eval = FALSE, echo = TRUE}
+library(stringr); library(dplyr)
+```
+
+```{r, echo = TRUE}
+text <- "This is a sentence that ’s got a stylized apostrophe."
+
+text %>%
+  # replace stylized apostrophes
+  str_replace_all("’", "'") %>%
+  # remove spaces before apostrophes 
+  # if they are:
+  # - preceded by the beginning of a string, space or final punctuation
+  # - followed by only one or two letters (e.g., don't, they're)
+  # - and then followed by either a space, final punctuation or end of string
+  str_replace_all("[\\s\\.\\?\\!^]'([^\\s]{1,2}[\\s\\.\\?\\!$])", "'\\1")
+```
+
+---
+
+## With both approaches
+
+.center[
+.content-box-red[
+`r icons::fontawesome("exclamation-triangle")` Test (and re-test) your pre-processing pipeline! 
+]
+]
+
+- Be careful of inadvertent changes (especially when using regular expressions)  
+    E.g. *don't* vs. *he said 'don't worry'*  
+- Be aware the different tools require different approaches (e.g., contractions separate or apart)
+- Never edit the original corpus files!
+- Keep track of any changes you make
+
+--
+
+```{r, echo = TRUE}
+text <- "'He ’ll be comin' round the 'mountain' when he comes,' I said."
+
+text %>%
+  str_replace_all("’", "'") %>%
+  str_replace_all("[\\s\\.\\?\\!^]'([^\\s]{1,2}[\\s\\.\\?\\!$])", "'\\1")
+```
+
+---
+
+## So why is pre-processing so important?
+
+
+--
+
+```{r, comment=''}
+
+ex_txt_01 %>% 
+  str_split(" ", simplify = TRUE) %>%
+  as.vector() %>%
+  head(30) 
+
+  
+```
+
+
+---
+
+## Tokenization
+
+**Token**: "the smallest unit of a corpus" .citation[ `r Citep(bib, c("Krause2012"), before = "", after = ": 2", max.names = 3)`]  
+--
+
+  = words, numbers, punctuation marks, quotation marks etc.  
+--
+  
+  = syllable, phoneme, etc...  
+--
+
+.pull-left[
+Easiest method (for English): 
+- split tokens at spaces
+- split sentences at periods (.), exclamation marks (!) or question marks (?)
+
+*What problems do you see with this method?*
+
+]
+
+--
+
+.pull-right[
+Potential problems:
+
+.small[
+- clitics (isn't, ain't)
+- missing whitespace 
+- periods (etc., U.S.A., fig.)
+- ordinal numbers 
+- multiword expressions (New York-based, 10 000, as well as)
+- word-internal punctuation (relationship(s), "Rambo"-type)
+- (de)hypthenation (preprocessing vs. pre-processing)
+- quoted speech (“You still don’t have an accountant?” Ellis said.)
+- ideographic languages (e.g., Chinese, Japanese)
+]
+
+
+.content-box-blue[
+`r icons::fontawesome("search")` For more information about tokenization see `r Citet(bib, c("Zeldes2020"), before = "", after = "")` and `r Citet(bib, c("Schmid2008"), before = "", after = "")`.  
+
+
+]
+]
+
+
+---
+
+class: header-slide
+
+# POS-tagging and lemmatization
+
+
+---
+
+## Overview
+
+.pull-left[
+
+.medium[Each word in the corpus is 'tagged' (labelled) with information about its grammatical category.]
+
+`r icons::fontawesome("wrench")` Under the hood: 
+1. All tokens with unambiguous POS labels are assigned tags (e.g., on the basis of a dictionary)
+2. Contextual features (e.g., surrounding tags, morphological endings) used in a statistical model to predict the tags of ambiguous items 
+
+.citation[ `r Citep(bib, c("Kyle2021"), before = "", after = ": 6")`]
+
+]
+
+--
+
+.pull-right[
+.medium[
+She `r icons::fontawesome("tag")` `pronoun`  
+sells `r icons::fontawesome("tag")` `verb`  
+seashells `r icons::fontawesome("tag")` `noun`  
+by `r icons::fontawesome("tag")` `preposition`  
+the `r icons::fontawesome("tag")` `determiner`  
+seashore `r icons::fontawesome("tag")` `noun`  
+. `r icons::fontawesome("tag")` `punctuation`  
+]
+]
+
+---
+
+## Tagsets for English
+
+- CLAWS (Constituent Likelihood Automatic Word-tagging System)
+  - [CLAWS 5](http://ucrel.lancs.ac.uk/claws5tags.html) = 60 tags 
+  - [CLAWS 7](http://ucrel.lancs.ac.uk/claws7tags.html) = 160 tags
+- [PENN Treebank Tagset](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/data/Penn-Treebank-Tagset.pdf)
+- [BNC Tagset](http://www.natcorp.ox.ac.uk/docs/c5spec.html) 
+- [Universal POS tags](https://universaldependencies.org/u/pos/)
+
+*Different tagsets, (subtly) different theories of grammar*
+
+--
+
+```{r, out.width="40%"}
+knitr::include_graphics("figures/rid.png")
+```
+
+.center[
+.citation[ `r Citep(bib, c("Newman2021"), before = "", after = ": 21")`
+ ]]
+
+--
+
+
+.content-box-blue[
+`r icons::fontawesome("lightbulb")` Select the tagset that is right for your data/research question.
+
+]
+
+
+---
+
+## Example
+
+.pull-left[
+```{r}
+knitr::include_graphics("figures/pos_example.png")
+knitr::include_graphics("figures/pos_example_raw.png")
+```
+
+.citation[ `r Citep(bib, c("VanRooy2015"), before = "", after = ": 80-81")`]
+]
+
+
+--
+
 .pull-right[
 ```{r}
-knitr::include_graphics("figures/level2.png")
+claws_horizontal <- scan(here("data", "example_texts", "ICLE-TS-NOUN-0005.1_horizontal.txt"), what = character(), sep = "\n")
+
+pos_example <- str_split(claws_horizontal, " ", simplify = TRUE) %>%
+  as.vector()
+```
+
+
+**Verbs:** `r pos_example %>% str_subset("_V") %>% paste0(collapse = ", ")`  
+<br>
+
+**Nouns:** `r pos_example %>% str_subset("_N") %>% paste0(collapse = ", ")`
+
+= [CLAWS C7 Tagset](https://ucrel.lancs.ac.uk/claws7tags.html)
+
+
+]
+
+--
+
+.center[
+.content-box-blue[`r icons::fontawesome("question-circle")` What does the tag PPIS2 refer to?]
+]
+
+--
+
+.center[
+
+.content-box-blue[`r icons::fontawesome("question-circle")` What do you notice about the learner errors? (e.g., 'mension', 'is awareness campaigns')]
+]
+
+
+---
+
+## Types of output: *Horizontal*
+
+
+`We_PPIS2 find_VV0 that_CST in_II fact_NN1 these_DD2 people_NN are_VBR the_AT most_RGT exposed_JJ to_II media_NN not_XX to_II mension_NN1 the_AT fact_NN1 that_CST there_EX is_VBZ forever_RT AIDS_NN1 awareness_NN1 campaigns_NN2 launged_VVD through_RP out_RP the_AT county_NN1 ._. `
+
+---
+
+## Types of output: *(Pseudo)-XML*
+
+
+```{r, comment=""}
+scan(here("data", "example_texts", "ICLE-TS-NOUN-0005.1_XML.txt"), what = character(), sep = "\n") %>%
+  paste0(collapse = " ") %>%
+  str_extract_all("<w[^(</w)]+</w>") %>%
+  unlist() %>%
+  head(20) %>%
+  cat(sep = "\n")
+```
+
+
+---
+
+## Types of output: *Vertical*
+
+```{r}
+#function to tag text
+tagText <- function(file, format = "file", doc_id){
+  require(koRpus.lang.en)
+  tagged.text <- treetag(
+    file,
+    treetagger="manual",
+    lang="en",
+    TT.options=list(
+      path="/Applications/tree-tagger",
+      #tokenizer="tagger-scripts/utf8-tokenize.perl",
+      preset= "en"
+    ),
+    doc_id=doc_id,
+    format = format
+  )
+  return(tagged.text)
+}
+icle_txt <- here("data", "example_texts", "ICLE-TS-NOUN-0005.1.txt") 
+
+icle_txt <- tagText(icle_txt, doc_id = basename(icle_txt))@tokens 
+
+icle_txt %>%
+  head(20) %>%
+  select(idx, sntc, token, tag, lttr, wclass) %>%
+  print()
+
+```
+
+
+---
+
+
+## Lemmatization
+
+.medium[**Lemma:** "a 'base form', which provides a level of abstraction from any inflection that might appear in the original orthographic word."]  
+.citation[ `r Citep(bib, c("Newman2021"), before = "", after = ": 29")`]
+
+.pull-left[
+```{r}
+knitr::include_graphics("figures/pos_example_raw.png")
+```
+]
+
+.pull-right[
+
+```{r, results="asis"}
+read.csv(here("data", "example_texts", "ICLE-TS-NOUN-0005.1_treetagger.tsv"), sep = "\t", header = FALSE) %>%
+  select(V3) %>%
+  unlist(use.names = FALSE) %>%
+  paste0(., collapse =" ") %>% 
+  cat()
+  
+```
+]
+
+---
+
+# Example
+
+```{r}
+icle_txt %>%
+  head(20) %>%
+  select(idx, sntc, token, tag, lemma, lttr, wclass) %>%
+  print()
+```
+
+
+---
+
+## Webtools
+
+.pull-left[
+.center[
+[TreeTagger](https://cental.uclouvain.be/treetagger/)]
+
+```{r, fig.align='center', fig.cap = "" }
+knitr::include_graphics("figures/treetagger.png")
+```
+
+]
+
+.pull-right[
+.center[
+[CLAWS](http://ucrel-api.lancaster.ac.uk/claws/free.html) ]
+```{r, fig.align='center', fig.cap = ""}
+knitr::include_graphics("figures/claws.png")
 ```
 
 ]
 
 ---
 
-## How this workshop will work
+# R
+
+
+```{r echo = TRUE, eval = FALSE}
+
+library(koRpus); library(koRpus.lang.en)
+
+file <- "data/example_texts/ICLE-TS-NOUN-0005.1.txt"
+  
+treetag(
+  file,
+  treetagger="manual",
+  lang="en",
+  TT.options=list(
+    # Change this to the location where TreeTagger is installed
+    path="/Applications/tree-tagger",
+    preset="en"
+  ),
+  doc_id=basename(file)
+)
+
+
+```
 
 .pull-left[
-.large[**Level 1.**] Basic webtools (beginner)  
-.large[**Level 2.**] SketchEngine (intermediate)  
-.large[**Level 3.**] R (advanced)  
+.content-box-red[
+
+`r icons::fontawesome("exclamation-triangle")` Note: For this to work, both TreeTagger and the appropriate tagsets must first be installed locally on your computer. See instructions [here](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/)
 
 ]
+]
+
+--
+
+.pull-right[
+.content-box-blue[
+`r icons::fontawesome("lightbulb")` See [this vignette](https://cran.r-project.org/web/packages/koRpus/vignettes/koRpus_vignette.html) for more information about the `koRpus` package.
+]
+]
+
+---
+
+## Activity 1: POS-tagging
+
+.pull-left[
+**Webtools/Excel Option**
+
+Open `activity_02_pos-tagging.docx` and follow the instructions.
+
+**R Option**
+
+Open `activity_02_pos-tagging.R` and follow the instructions.
+
+.content-box-blue[
+`r icons::fontawesome("github")` Remember that all materials and sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023). 
+
+1. Click on .content-box-green[ `< > Code`].
+2. `Download ZIP` to download all files.
+]
+
+]
+
+
+---
+
+## Activity 1: POS-tagging
+
+.pull-left[
+**Webtools/Excel Option**
+
+Open `activity_02_pos-tagging.docx` and follow the instructions.
+
+**R Option**
+
+Open `activity_02_pos-tagging.R` and follow the instructions.
+
+.content-box-blue[
+`r icons::fontawesome("github")` Remember that all materials and are sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023)
+
+1. Click on .content-box-green[ `< > Code`].
+2. `Download ZIP` to download all files.
+]
+
+]
+
+.pull-right[
+
+*Questions*  
+.small[
+1. What do you notice about the ICLE texts? What pre-processing steps (if any) might be necessary before using automatic annotation tools?
+1. R: What 'special characters' do you notice?
+1. R: How many 'words' and 'sentences' does BRFF1065.txt contain?
+1. R: What is the average sentence length of BRFF1065.txt? 
+1. WT: How many tokens were tagged with CLAWS (v5)?
+1. WT: What is the tag for the base form of a lexical verb in the C5 tagset?
+1. WT: What is the tag for the base form of a lexical verb in the C7 tagset?
+1. WT: What is meant by ‘[VVZ/86] NN2/14’?
+1. WT: What does the code ‘\@card\@’ mean?
+1. How many adjectives (JJ) are there in BRFF1065.txt?
+1. How many common nouns (NN, NNS) are there in BRFF1065.txt?
+1. How should you best deal with  unknown lemmas?
+1. What are the most frequent verb lemmas in the corpus?
+
+]
+]
+
+---
+
+class: header-slide
+
+# Syntactic parsing
+
+
+---
+
+## Overview
+
+.pull-left[
+
+.medium[Labels of the syntactic connections between words (heads and dependents)]
+
+`r icons::fontawesome("wrench")` Under the hood: 
+1. Texts are POS-tagged.
+1. POS tags used in conjunction with phrase-structure rules (generated from training algorithms on large corpora) to generate several possible *parse trees* for each sentence. 
+1. Statistical or machine learning algorithms are used to select the most probable parse tree for a given sentence.
+
+.citation[ `r Citep(bib, c("Kyle2021"), before = "", after = ": 7")`]
+
+]
+
+--
+
+.pull-right[
+```{r}
+knitr::include_graphics("figures/synt_parse_example.png")
+```
+
+]
+
+
+---
+
+## Overview
+
+.pull-left[
+
+.medium[Labels of the syntactic connections between words (heads and dependents)]
+
+`r icons::fontawesome("wrench")` Under the hood: 
+1. Texts are POS-tagged.
+1. POS tags used in conjunction with phrase-structure rules (generated from training algorithms on large corpora) to generate several possible *parse trees* for each sentence. 
+1. Statistical or machine learning algorithms are used to select the most probable parse tree for a given sentence.
+
+.citation[ `r Citep(bib, c("Kyle2021"), before = "", after = ": 7")`]
+
+]
+
 
 
 .pull-right[
 ```{r}
-knitr::include_graphics("figures/level3.png")
+knitr::include_graphics("figures/synt_parse_example.png")
+knitr::include_graphics("figures/parse-phrase_structure.png")
 ```
 
 ]
+
+---
+
+## Dependency models for English
+
+- [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/) 
+- [spaCy](https://spacy.io/models)
+- [Universal dependencies](https://universaldependencies.org/)
+
+
+*Different models, (subtly) different theories of grammar*
+
+---
+
+## Types of output: *CoNLL*
+
+*= Conference on Natural Language Learning*
+
+```{r, eval=FALSE}
+library(spacyr)
+spacy_initialize(model = "en_core_web_sm")
+
+text <- "She ran over the hill."
+
+write.csv(spacy_parse(text, dependency = TRUE, entity = FALSE), file = "data/conll_example.csv", row.names = FALSE)
+
+
+```
+
+
+```{r, comment = ""}
+read.csv(here("data", "conll_example.csv")) %>% print()
+```
+
+
+--
+
+
+```{r, out.width="40%"}
+knitr::include_graphics("figures/spacy_example.svg")
+```
+
+
+---
+
+
+## Types of output: [*FoLiA XML*](https://proycon.github.io/folia/)
+
+*= Format for Linguistic Annotation*
+
+```{r, out.width="60%"}
+knitr::include_graphics("figures/folia_example.png")
+```
+
+
+---
+
+## Types of output: *json*
+
+.pull-left[
+```{r, comment = ""}
+scan(file = here("data", "json_example.json"), what = character(), sep = "\n") 
+```
+]
+
+--
+
+.pull-right[
+.content-box-blue[
+`r icons::fontawesome("lightbulb")` Can easily be [converted](https://www.convertcsv.com/json-to-csv.htm) into CSV/Excel format.  
+
+]
+]
+
+---
+
+## Webtools
+
+.pull-left[
+
+.center[[CoreNLP](https://corenlp.run/)]
+
+```{r, fig.align='center', out.width="70%", fig.cap = ""}
+knitr::include_graphics("figures/corenlp-webpage.png")
+```
+
+.content-box-red[
+
+`r icons::fontawesome("exclamation-triangle")` Note: May not be available due to planned outage from June 24th-July 3rd.  
+]
+]
+
+.pull-right[
+
+.center[[Hugging Face spaCy visualizer](https://huggingface.co/spaces/spacy/pipeline-visualizer)]
+
+```{r, fig.align='center', out.width="70%", fig.cap = ""}
+knitr::include_graphics("figures/hugging_face_visualizer.png")
+```
+
+]
+
+---
+
+## R
+
+```{r, eval = FALSE, echo = TRUE}
+library(spacyr)
+
+spacy_initialize(model = "en_core_web_sm")
+
+text <- "She ran over the hill."
+
+spacy_parse(text, dependency = TRUE)
+
+```
+
+.pull-left[
+.content-box-red[
+
+`r icons::fontawesome("exclamation-triangle")` Note: For this to work, spaCy must be installed locally on your computer but this can be done within the spaCy package using the `spacy_install()` function.
+
+]
+]
+
+--
+
+.pull-right[
+.content-box-blue[
+`r icons::fontawesome("lightbulb")` See [this vignette](https://cran.r-project.org/web/packages/spacyr/vignettes/using_spacyr.html) for more information about the `spacyr` package.
+]
+]
+
+---
+
+## Activity 2: Syntactic parsing
+
+.pull-left[
+**Webtools/Excel Option**
+
+Open `activity_02_parsing.docx` and follow the instructions.
+
+**R Option**
+
+Open `activity_02_parsing.R` and follow the instructions.
+
+.content-box-blue[
+`r icons::fontawesome("github")` Remember that all materials and sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023). 
+
+1. Click on .content-box-green[ `< > Code`].
+2. `Download ZIP` to download all files.
+]
+
+]
+
+
+---
+
+## Activity 2: Syntactic parsing
+
+.pull-left[
+**Webtools/Excel Option**
+
+Open `activity_02_parsing.docx` and follow the instructions.
+
+**R Option**
+
+Open `activity_02_parsing.R` and follow the instructions.
+
+.content-box-blue[
+`r icons::fontawesome("github")` Remember that all materials and sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023). 
+
+1. Click on .content-box-green[ `< > Code`].
+2. `Download ZIP` to download all files.
+]
+
+]
+
+.pull-right[
+
+*Questions*  
+.small[
+1. Which word is the final period dependent on?
+1. What type of dependency relationships are marked by ‘amod’ and ‘dobj’?
+1. How many amod dependencies are there in this text?
+1. What adjective modifies the word ‘difference’?
+1. What is the object of the verb ‘control’?
+1. R: What is the most frequency dependency relation in the corpus?
+1. R: What is the average length of noun phrases in the corpus? 
+
+]
+]
+
 
 ---
 
@@ -156,10 +1363,16 @@ knitr::include_graphics("figures/level3.png")
 
 ---
 
-## `r icons::fontawesome("book")` Further reading 
+## `r icons::fontawesome("book")` Further reading  
+
+Kyle, K. (2021). Natural language processing for learner corpus research. International Journal of Learner Corpus Research, 7(1), 1–16.
 
 Newman, J., & Cox, C. (2021). Corpus annotation. In A practical handbook of corpus linguistics (pp. 25–48). Springer. https://doi.org/10.4324/9780429269035-7
 
+Schmid, H. (2008). Tokenizing and part-of-speech tagging. In Corpus Linguistics: An International Handbook. de Gruyter.
+
 van Rooy, B. (2015). Annotating learner corpora. In S. Granger, G. Gilquin, & F. Meunier (Eds.), The Cambridge handbook of learner corpus research (pp. 79–106). Cambridge University Press. https://doi.org/10.1017/CBO9781139649414.005
+
+Zeldes, A. (2020). Corpus Architecture. In M. Paquot & S. Th. Gries (Eds.), A Practical Handbook of Corpus Linguistics (pp. 49–73). Springer International Publishing. https://link.springer.com/10.1007/978-3-030-46216-1_3
 
 
