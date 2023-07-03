@@ -630,7 +630,7 @@ ex_txt_01 %>%
 
 ---
 
-## Text pre-processing in Excel
+## Excel
 
 ```{r, out.width="70%"}
 knitr::include_graphics("figures/excel_clean.png")
@@ -645,7 +645,76 @@ knitr::include_graphics("figures/excel_clean.png")
 
 ---
 
-## Text pre-processing in R
+## Notepad++ (PC) / Textmate (Mac)
+
+.pull-left[
+.center[
+[Notepad + +](https://notepad-plus-plus.org/)]
+
+```{r, fig.align='center', fig.cap = "" }
+knitr::include_graphics("figures/notepad.png")
+```
+
+]
+
+.pull-right[
+.center[
+[Textmate](https://macromates.com/) ]
+```{r, fig.align='center', fig.cap = ""}
+knitr::include_graphics("figures/textmate.png")
+```
+
+]
+
+---
+
+## Textmate (Mac)
+
+.pull-left[
+```{r, fig.align='center', fig.cap = "" }
+knitr::include_graphics("figures/textmate_text.png")
+```
+
+]
+
+.pull-right[
+```{r, fig.align='center', fig.cap = "" }
+knitr::include_graphics("figures/textmate_search.png")
+```
+
+]
+
+
+---
+
+## Regular expressions (RegEx)
+
+.pull-left[
+Special patterns that allow you to search for specific sequences.
+
+*Examples:*  
+
+`\w`: Returns a word character (A-Z, a-z, _)  
+`\s`: Returns a space character  
+`+`: Returns one or more of the previous character  
+`?`: Returns zero or more of the previous character  
+`.`: Returns any single character  
+
+See [here](https://regex101.com/) for a website where you can test regular expressions.
+
+]
+
+.pull-right[
+```{r, fig.align='center', fig.cap = "" }
+knitr::include_graphics("figures/textmate_search_regex.png")
+```
+
+]
+
+
+---
+
+## R
 
 ```{r, eval = FALSE, echo = TRUE}
 library(stringr); library(dplyr)
