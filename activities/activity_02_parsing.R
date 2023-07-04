@@ -43,6 +43,10 @@ spacy_parse(sentence, dependency = TRUE,
   mutate(head = sapply(head, as.character))
 
 
+# Note: In case you cannot get spaCy to run, you can simply
+# load the following object 
+readRDS("data/spacy_sentence.rds")
+
 ###### Question 1. What word is the final period dependent on? #####
 ###### Question 2. What type of dependency relationships are marked by ‘amod’ and ‘dobj’? ######
 
@@ -52,6 +56,11 @@ BRFF1065 <- icle_corpus$text[icle_corpus$doc_id == "BRFF1065.txt"]
 
 BRFF1065_parsed <- spacy_parse(BRFF1065, dependency = TRUE, additional_attributes = c("head")) %>%
   mutate(head = sapply(head, as.character))
+
+
+# Note: In case you cannot get spaCy to run, you can simply
+# load the following object 
+BRFF1065_parsed <- readRDS("data/BRFF1065_parsed.rds")
 
 # From here, it is easy to analyze this data frame like any other. 
 # For example, we can extract all dependencies of interest 
@@ -81,6 +90,11 @@ icle_parsed = spacy_parse(icle_corpus,
                           entity = TRUE, 
                           additional_attributes = c("head")) %>%
   mutate(head = sapply(head, as.character))
+
+# Note: In case you cannot get spaCy to run, you can simply
+# load the following object 
+icle_parsed <- readRDS("data/icle_parsed.rds")
+
 
 ###### Question 5. What is the most frequency dependency relation in the corpus? ######
 

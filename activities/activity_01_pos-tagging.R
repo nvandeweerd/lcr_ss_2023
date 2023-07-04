@@ -106,7 +106,7 @@ BRFF1065_tagged <- treetag(
 
 # Note: if you are not able to run TreeTagger, you can simply
 # load the `BRFF1065_tagged.rds` object 
-readRDS("data/BRFF1065_tagged.rds")
+BRFF1065_tagged <- readRDS("data/BRFF1065_tagged.rds")
 
 
 # Note that the object that gets returned is not a data frame but a 'kRp' object
@@ -187,8 +187,8 @@ icle_tagged <- mapply(function(x, y) treetag(x,
 
 
 # Note: if you are not able to run TreeTagger, you can simply
-# load the `BRFF1065_tagged.rds` object 
-readRDS("data/icle_tagged.rds")
+# load the `icle_tagged.rds` object 
+icle_tagged <- readRDS("data/icle_tagged.rds")
 
 # Inspect the data frame
 glimpse(icle_tagged)
