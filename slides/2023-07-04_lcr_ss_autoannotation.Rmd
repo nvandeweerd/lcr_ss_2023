@@ -101,12 +101,12 @@ class: header-slide
 .pull-left[
 
 `r icons::fontawesome("university")` Radboud University Nijmegen  
-`r icons::fontawesome("building")` Assistant professor in *Language and Communication*  
+`r icons::fontawesome("building")` Assistant professor in Language and Communication  
 `r icons::fontawesome("search")` Research interests:
   - Phraseological complexity in L2 French
   - Accuracy of automatic transcription software for L2 data
   - Language development during study abroad 
-  - Crowdsourcing language assessment project 
+  - Crowdsourcing language assessment (CLAP) 
 
 ]
 
@@ -152,6 +152,27 @@ participant_info %>%
 
 ]
 
+---
+
+## About you
+
+.pull-left[
+
+```{r}
+<<map>>
+```
+
+]
+
+.pull-right[
+
+.content-box-blue[
+`r icons::fontawesome("hand-paper")` How many of you have experience with programming (R, python, etc.,)  
+
+]
+
+]
+
 
 
 ---
@@ -172,6 +193,11 @@ participant_info %>%
 
 <br>
 > "how to build my own machine-learning scheme when using topic modelling?"  
+--
+
+.content-box-blue[
+
+`r icons::fontawesome("search")` Check out the `topicmodels` package in R and Murakami et al. (2017). But also `r Citet(bib, c("Shadrova2021a"), before = "", after = "")` for a word of caution.]  
 --
 
 <br>
@@ -478,7 +504,7 @@ knitr::include_graphics("figures/consistency.jpeg")
 
 <br> 
 
-`r icons::fontawesome("coffee")` *Coffee break* 
+`r icons::fontawesome("coffee")` *Coffee break* (15.30)
 
 <br>
 
@@ -711,6 +737,64 @@ knitr::include_graphics("figures/textmate_search_regex.png")
 
 ]
 
+---
+
+## Regular expressions (RegEx)
+
+.pull-left[
+Special patterns that allow you to search for specific sequences.
+
+*Examples:*  
+
+`\w`: Returns a word character (A-Z, a-z, _)  
+`\s`: Returns a space character  
+`+`: Returns one or more of the previous character  
+`?`: Returns zero or more of the previous character  
+`.`: Returns any single character  
+
+See [here](https://regex101.com/) for a website where you can test regular expressions.
+
+.content-box-blue[
+`r icons::fontawesome("flask")` Try this: What regular expression could be used to remove the 'headers' from the ICLE texts? (e.g., ` <ICLE-BR-FF-0062.1> `). Be careful not to remove anything else!
+]
+
+]
+
+.pull-right[
+```{r, fig.align='center', fig.cap = "" }
+knitr::include_graphics("figures/textmate_search_regex.png")
+```
+
+]
+
+---
+
+## Some possible solutions
+
+.center[.large[How to find...` <ICLE-BR-FF-0062.1> `]]
+
+--
+
+.pull-left[`<\w{4}-\w{2}-\w{2}-\w{4}\.\d>`  
+
+```{r, out.width="60%"}
+knitr::include_graphics("figures/regex_exp-1.png")
+```
+
+]
+
+--
+
+.pull-right[
+`<[^>]+>`
+
+```{r, out.width="60%"}
+knitr::include_graphics("figures/regex-exp-2.png")
+```
+
+]
+
+
 
 ---
 
@@ -733,6 +817,15 @@ text %>%
   # - and then followed by either a space, final punctuation or end of string
   str_replace_all("[\\s\\.\\?\\!^]'([^\\s]{1,2}[\\s\\.\\?\\!$])", "'\\1")
 ```
+
+--
+
+.pull-right[
+.content-box-red[
+`r icons::fontawesome("exclamation-triangle")` Note that you need double slashes for special or escape characters in R (`\\`).  
+
+]
+]
 
 ---
 
@@ -1036,6 +1129,13 @@ read.csv(here("data", "example_texts", "ICLE-TS-NOUN-0005.1_treetagger.tsv"), se
 ```
 ]
 
+--
+
+.content-box-blue[
+`r icons::fontawesome("lightbulb")` Why might this be useful?  
+
+]
+
 ---
 
 # Example
@@ -1075,6 +1175,63 @@ knitr::include_graphics("figures/claws.png")
 
 # R
 
+.pull-left[
+
+```{r echo = TRUE, eval = FALSE}
+
+library(koRpus); library(koRpus.lang.en)
+
+file <- "data/example_texts/ICLE-TS-NOUN-0005.1.txt"
+  
+treetag(
+  file,
+  treetagger="manual",
+  lang="en",
+  TT.options=list(
+    # Change this to the location where TreeTagger is installed
+    path="/Applications/tree-tagger",
+    preset="en"
+  ),
+  doc_id=basename(file)
+)
+
+
+```
+]
+
+--
+
+.pull-right[
+```{r echo = TRUE, eval = FALSE}
+
+library(koRpus); library(koRpus.lang.en)
+
+text <- "This is a sentence."
+  
+treetag(
+  text,
+  # Need to add the 'format' argument.
+  format = "obj",
+  treetagger="manual",
+  lang="en",
+  TT.options=list(
+    # Change this to the location where TreeTagger is installed
+    path="/Applications/tree-tagger",
+    preset="en"
+  ),
+  # Not necessary anymore
+  #doc_id=basename(file)
+)
+
+
+```
+]
+
+---
+
+# R
+
+.pull-left[
 
 ```{r echo = TRUE, eval = FALSE}
 
@@ -1097,21 +1254,49 @@ treetag(
 
 ```
 
-.pull-left[
 .content-box-red[
 
-`r icons::fontawesome("exclamation-triangle")` Note: For this to work, both TreeTagger and the appropriate tagsets must first be installed locally on your computer. See instructions [here](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/)
+`r icons::fontawesome("exclamation-triangle")` Note: For this to work, both TreeTagger and the appropriate tagsets must first be installed locally on your computer. See instructions [here](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/).
 
 ]
+
 ]
 
---
+
 
 .pull-right[
+```{r echo = TRUE, eval = FALSE}
+
+library(koRpus); library(koRpus.lang.en)
+
+text <- "This is a sentence."
+  
+treetag(
+  text,
+  # Need to add the 'format' argument.
+  format = "obj",
+  treetagger="manual",
+  lang="en",
+  TT.options=list(
+    # Change this to the location where TreeTagger is installed
+    path="/Applications/tree-tagger",
+    preset="en"
+  ),
+  # Not necessary anymore
+  #doc_id=basename(file)
+)
+
+
+```
+
 .content-box-blue[
 `r icons::fontawesome("lightbulb")` See [this vignette](https://cran.r-project.org/web/packages/koRpus/vignettes/koRpus_vignette.html) for more information about the `koRpus` package.
 ]
+
 ]
+
+
+
 
 ---
 
@@ -1736,16 +1921,22 @@ class: header-slide
 
 ## `r icons::fontawesome("book")` Further reading  
 
+.small[
+
 Kyle, K. (2021). Natural language processing for learner corpus research. International Journal of Learner Corpus Research, 7(1), 1–16.
+
+Murakami, A., Thompson, P., Hunston, S., & Vajn, D. (2017). “What is this corpus about?”: Using topic modelling to explore a specialised corpus. Corpora, 12(2), 243–277.
 
 Newman, J., & Cox, C. (2021). Corpus annotation. In A practical handbook of corpus linguistics (pp. 25–48). Springer. https://doi.org/10.4324/9780429269035-7
 
 Schmid, H. (2008). Tokenizing and part-of-speech tagging. In Corpus Linguistics: An International Handbook. de Gruyter.
 
+Shadrova, A. (2021). Topic models do not model topics: epistemological remarks and steps towards best practices. Journal of Data Mining & Digital Humanities, 2021, 7595.
+
 van Rooy, B. (2015). Annotating learner corpora. In S. Granger, G. Gilquin, & F. Meunier (Eds.), The Cambridge handbook of learner corpus research (pp. 79–106). Cambridge University Press. https://doi.org/10.1017/CBO9781139649414.005
 
 Zeldes, A. (2020). Corpus Architecture. In M. Paquot & S. Th. Gries (Eds.), A Practical Handbook of Corpus Linguistics (pp. 49–73). Springer International Publishing. https://link.springer.com/10.1007/978-3-030-46216-1_3
 
-
+]
 
 
