@@ -13,7 +13,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-#knit: pagedown::chrome_print
+knit: pagedown::chrome_print
 editor_options: 
   chunk_output_type: console
 ---
@@ -510,7 +510,7 @@ knitr::include_graphics("figures/consistency.jpeg")
 
 - Syntactic annotation
 - Hands on activity: *Syntactic annotation*
-- Accuracy measures
+- The reliability of automatic tools
 - Final remarks
 
 
@@ -1622,7 +1622,7 @@ Open `activity_02_parsing.R` and follow the instructions.
 
 class: header-slide
 
-# Accuracy
+# The reliability of automatic tools
 
 ---
 
@@ -1872,7 +1872,7 @@ class: header-slide
   - What are some POS tagging tools?  
 --
   
-1. What is Syntactic parsing?  
+1. What is syntactic parsing?  
 --
 
   - What are some tools for syntactic parsing?  
