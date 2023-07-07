@@ -11,7 +11,7 @@ install.packages("dplyr") # For easy data manipulation
 install.packages ("spacyr") # A package for dependency annotation
 koRpus::install.koRpus.lang("en") # The utilities to process English data
 # Load packages
-library(dplyr); library(spacyr)
+library(dplyr); library(spacyr); library(stringr)
 
 #### Step 2. Set up spaCy: First time ####
 # Install spaCy on your computer
@@ -28,13 +28,13 @@ spacy_initialize(model = "en_core_web_sm")
 #### Step 4. Dependency parsing using spaCy ####
 
 ##### Load in the ICLE corpus data frame  #####
-icle_corpus <- read.csv("data/icle_corpus.csv") %>%
+icle <- read.csv("data/icle_corpus.csv") %>%
   # spaCy needs the data frame to follow the TIF standard
   select(doc_id = file, text = text_clean)
 
 ##### Test spaCy on the first sentence of BRFF1065.txt)  #####
 # Extract the first sentence
-sentence <- str_split(icle_corpus$text[icle_corpus$doc_id == "BRFF1065.txt"], "(?<=\\.)[^\\.]")[[1]][1]
+sentence <- str_split(icle$text[icle$doc_id == "BRFF1065.txt"], "(?<=\\.)[^\\.]")[[1]][1]
 # Run spaCy on the first sentence to see the full parse
 spacy_parse(sentence, dependency = TRUE,
                                entity = FALSE,
@@ -45,14 +45,14 @@ spacy_parse(sentence, dependency = TRUE,
 
 # Note: In case you cannot get spaCy to run, you can simply
 # load the following object 
-readRDS("data/spacy_sentence.rds")
+sentence <- readRDS("data/spacy_sentence.rds")
 
 ###### Question 1. What word is the final period dependent on? #####
 ###### Question 2. What type of dependency relationships are marked by ‘amod’ and ‘dobj’? ######
 
 
 # Now we will apply spaCy to the entire text
-BRFF1065 <- icle_corpus$text[icle_corpus$doc_id == "BRFF1065.txt"]
+BRFF1065 <- icle$text[icle$doc_id == "BRFF1065.txt"]
 
 BRFF1065_parsed <- spacy_parse(BRFF1065, dependency = TRUE, additional_attributes = c("head")) %>%
   mutate(head = sapply(head, as.character))
@@ -85,7 +85,7 @@ BRFF1065_parsed %>%
 # It's also very easy to apply spaCy to the entire corpus
 # Note: the data frame must contain the columns 'doc_id' and 'text' 
 # Now we will apply spaCy to the entire corpus
-icle_parsed = spacy_parse(icle_corpus,
+icle_parsed = spacy_parse(icle,
                           dependency = TRUE, 
                           entity = TRUE, 
                           additional_attributes = c("head")) %>%

@@ -1305,11 +1305,11 @@ treetag(
 .pull-left[
 **Webtools/Excel Option**
 
-Open `activity_02_pos-tagging.docx` and follow the instructions.
+Open `activity_01_pos-tagging.docx` and follow the instructions.
 
 **R Option**
 
-Open `activity_02_pos-tagging.R` and follow the instructions.
+Open `activity_01_pos-tagging.R` and follow the instructions.
 
 .content-box-blue[
 `r icons::fontawesome("github")` Remember that all materials and sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023). 
@@ -1328,11 +1328,11 @@ Open `activity_02_pos-tagging.R` and follow the instructions.
 .pull-left[
 **Webtools/Excel Option**
 
-Open `activity_02_pos-tagging.docx` and follow the instructions.
+Open `activity_01_pos-tagging.docx` and follow the instructions.
 
 **R Option**
 
-Open `activity_02_pos-tagging.R` and follow the instructions.
+Open `activity_01_pos-tagging.R` and follow the instructions.
 
 .content-box-blue[
 `r icons::fontawesome("github")` Remember that all materials and are sides available on [GitHub](github.com/nvandeweerd/lcr_ss_2023)
